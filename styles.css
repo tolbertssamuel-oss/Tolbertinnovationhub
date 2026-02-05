@@ -10,6 +10,7 @@
   --line: #d7e0ea;
   --radius: 14px;
   --shadow-soft: 0 8px 24px rgba(8, 24, 42, 0.06);
+  --focus: #ffbf47;
 }
 
 * { box-sizing: border-box; }
@@ -18,12 +19,41 @@ body {
   margin: 0;
   font-family: "Segoe UI", Inter, Roboto, Arial, sans-serif;
   color: var(--text);
-  line-height: 1.65;
+  line-height: 1.7;
   background: var(--bg);
+  font-size: 1rem;
 }
 
 img { max-width: 100%; display: block; }
 a { color: inherit; }
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -3rem;
+  background: #ffffff;
+  color: #0b2340;
+  border: 2px solid var(--secondary);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 2000;
+}
+
+.skip-link:focus-visible {
+  top: 0.75rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
 
 .container {
   width: min(1120px, 92%);
@@ -64,7 +94,7 @@ a { color: inherit; }
 .nav-links a {
   text-decoration: none;
   font-weight: 600;
-  color: var(--muted);
+  color: #334155;
   padding: 0.2rem 0;
   border-bottom: 2px solid transparent;
 }
@@ -164,7 +194,7 @@ h3 {
 
 .section-intro {
   max-width: 75ch;
-  color: var(--muted);
+  color: #334155;
 }
 
 .cards,
@@ -210,7 +240,8 @@ h3 {
   margin-top: 0.6rem;
   font-weight: 700;
   color: var(--primary-dark);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .list,
@@ -260,7 +291,7 @@ textarea:focus {
 
 .form-note {
   margin: 0.64rem 0 0;
-  color: var(--muted);
+  color: #334155;
   font-size: 0.94rem;
 }
 
