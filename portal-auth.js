@@ -23,6 +23,12 @@ function setFeedback(form, message, isError = false) {
   feedback.style.color = isError ? '#b42318' : '#0b5a32';
 }
 
+function getSessionStudent() {
+  const sessionId = sessionStorage.getItem(SESSION_KEY);
+  const students = getStudents();
+  return students.find((s) => s.id === sessionId) || null;
+}
+
 async function handleRegister(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -37,7 +43,7 @@ async function handleRegister(event) {
   const password = String(data.get('password'));
   const students = getStudents();
 
-  if (students.some(s => s.email === email)) {
+  if (students.some((s) => s.email === email)) {
     setFeedback(form, 'An account with this email already exists. Please log in.', true);
     return;
   }
@@ -50,6 +56,7 @@ async function handleRegister(event) {
     phone: String(data.get('phone')).trim(),
     program: String(data.get('program')).trim(),
     passwordHash,
+    submissions: [],
     createdAt: new Date().toISOString()
   };
 
@@ -72,7 +79,7 @@ async function handleLogin(event) {
   const email = String(data.get('email')).trim().toLowerCase();
   const passwordHash = await hashPassword(String(data.get('password')));
   const students = getStudents();
-  const student = students.find(s => s.email === email && s.passwordHash === passwordHash);
+  const student = students.find((s) => s.email === email && s.passwordHash === passwordHash);
 
   if (!student) {
     setFeedback(form, 'Invalid login credentials. Please try again.', true);
@@ -83,10 +90,100 @@ async function handleLogin(event) {
   window.location.href = 'portal-dashboard.html';
 }
 
-function loadDashboard() {
-  const sessionId = sessionStorage.getItem(SESSION_KEY);
+function renderSubmissionHistory(student) {
+  const host = document.getElementById('submission-history');
+  if (!host) return;
+
+  const submissions = student.submissions || [];
+  if (!submissions.length) {
+    host.innerHTML = '<p class="section-intro">No application submitted yet.</p>';
+    return;
+  }
+
+  host.innerHTML = submissions
+    .slice()
+    .reverse()
+    .map((submission) => {
+      const documents = (submission.documents || [])
+        .map((doc) => `<li>${doc.name} <small>(${doc.type || 'unknown'}, ${doc.sizeLabel})</small></li>`)
+        .join('');
+
+      return `
+        <article class="submission-item">
+          <h4>${submission.applicationType}</h4>
+          <p><strong>Target:</strong> ${submission.targetProgram}</p>
+          <p><strong>Submitted:</strong> ${new Date(submission.submittedAt).toLocaleString()}</p>
+          <p><strong>Summary:</strong> ${submission.summary}</p>
+          <ul class="list-tight">${documents}</ul>
+        </article>
+      `;
+    })
+    .join('');
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
+function handleApplicationSubmission(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    setFeedback(form, 'Please complete all fields and upload at least one document.', true);
+    return;
+  }
+
+  const current = getSessionStudent();
+  if (!current) {
+    window.location.href = 'portal-login.html';
+    return;
+  }
+
+  const fileInput = document.getElementById('supporting-documents');
+  const files = Array.from(fileInput?.files || []);
+  if (!files.length) {
+    setFeedback(form, 'Please upload at least one supporting document.', true);
+    return;
+  }
+
+  const data = new FormData(form);
+  const submission = {
+    id: crypto.randomUUID(),
+    applicationType: String(data.get('applicationType')).trim(),
+    targetProgram: String(data.get('targetProgram')).trim(),
+    summary: String(data.get('summary')).trim(),
+    documents: files.map((f) => ({
+      name: f.name,
+      size: f.size,
+      sizeLabel: formatSize(f.size),
+      type: f.type || 'file'
+    })),
+    submittedAt: new Date().toISOString(),
+    status: 'Submitted'
+  };
+
   const students = getStudents();
-  const student = students.find(s => s.id === sessionId);
+  const index = students.findIndex((s) => s.id === current.id);
+  if (index === -1) {
+    window.location.href = 'portal-login.html';
+    return;
+  }
+
+  students[index].submissions = students[index].submissions || [];
+  students[index].submissions.push(submission);
+  saveStudents(students);
+
+  setFeedback(form, 'Application submitted successfully with your uploaded documents.');
+  form.reset();
+  renderSubmissionHistory(students[index]);
+}
+
+function loadDashboard() {
+  const student = getSessionStudent();
 
   if (!student) {
     window.location.href = 'portal-login.html';
@@ -102,6 +199,13 @@ function loadDashboard() {
   setText('student-email', student.email);
   setText('student-phone', student.phone);
   setText('student-program', student.program);
+
+  renderSubmissionHistory(student);
+
+  const applicationForm = document.getElementById('application-submission-form');
+  if (applicationForm) {
+    applicationForm.addEventListener('submit', handleApplicationSubmission);
+  }
 
   const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) {

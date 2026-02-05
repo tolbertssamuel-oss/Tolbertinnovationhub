@@ -29,7 +29,7 @@
     <div class="container">
       <p class="section-label">Personal Dashboard</p>
       <h1 class="page-title">Welcome, <span id="student-name">Student</span></h1>
-      <p class="section-intro">View your scholarship profile and latest updates.</p>
+      <p class="section-intro">View your scholarship profile, submit applications, and upload supporting documents.</p>
 
       <div class="cards two-up">
         <article class="card">
@@ -40,7 +40,7 @@
         </article>
         <article class="card">
           <h3>Application Status</h3>
-          <ul class="list-tight">
+          <ul class="list-tight" id="application-status-list">
             <li>✅ Account created successfully</li>
             <li>🕒 Application review: In progress</li>
             <li>🕒 Admission letter stage: Pending qualification review</li>
@@ -48,6 +48,45 @@
           <button id="logout-btn" class="btn btn-primary" type="button">Log Out</button>
         </article>
       </div>
+
+      <section class="section compact-section">
+        <article class="form-card">
+          <h2>Application Submission Portal</h2>
+          <p class="section-intro">Complete the form below and upload required documents (transcript, ID, certificates, statement, etc.).</p>
+
+          <form id="application-submission-form" class="form-card inner-form" novalidate>
+            <div class="form-grid">
+              <label>Application Type
+                <select name="applicationType" required>
+                  <option value="">Select</option>
+                  <option>Scholarship Application</option>
+                  <option>Healthcare Exposure Request</option>
+                  <option>Software Training Enrollment</option>
+                </select>
+              </label>
+              <label>Target Institution / Program
+                <input type="text" name="targetProgram" required placeholder="e.g., BSc Computer Science - India" />
+              </label>
+              <label class="full">Application Summary
+                <textarea name="summary" rows="4" required placeholder="Briefly explain your goals and why you are applying."></textarea>
+              </label>
+              <label class="full">Upload Supporting Documents
+                <input type="file" id="supporting-documents" name="documents" multiple required accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+            <p class="form-feedback" aria-live="polite"></p>
+          </form>
+        </article>
+      </section>
+
+      <section class="section compact-section">
+        <article class="card">
+          <h3>Submitted Applications & Documents</h3>
+          <p class="section-intro">Your recent submissions are listed below.</p>
+          <div id="submission-history" class="submission-history" aria-live="polite"></div>
+        </article>
+      </section>
     </div>
   </main>
 
