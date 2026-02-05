@@ -1,16 +1,16 @@
 :root {
-  --primary: #0e6b43;
-  --primary-dark: #09462c;
-  --secondary: #0c2f75;
-  --accent: #f5b335;
-  --bg: #f4f7fb;
+  --primary: #4da3ff;
+  --primary-dark: #1f6fd1;
+  --secondary: #c62828;
+  --accent: #ef5350;
+  --bg: #eef7ff;
   --surface: #ffffff;
   --text: #1b2430;
   --muted: #556274;
-  --line: #d7e0ea;
+  --line: #c9def5;
   --radius: 14px;
   --shadow-soft: 0 8px 24px rgba(8, 24, 42, 0.06);
-  --focus: #ffbf47;
+  --focus: #ff6b6b;
 }
 
 * { box-sizing: border-box; }
@@ -106,14 +106,14 @@ textarea:focus-visible {
 }
 
 .hero {
-  background: linear-gradient(120deg, #0f6f45, #0c2f75);
+  background: linear-gradient(120deg, #64b5f6, #c62828);
   color: #fff;
   padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(2.8rem, 5vw, 4.5rem);
 }
 
 .eyebrow {
   margin: 0;
-  color: #d9f8ea;
+  color: #e3f2ff;
   text-transform: uppercase;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
@@ -142,7 +142,7 @@ h3 {
 
 .lead {
   max-width: 75ch;
-  color: #eaf6ff;
+  color: #f7fbff;
 }
 
 .hero-actions {
@@ -166,7 +166,7 @@ h3 {
 
 .btn-primary {
   background: var(--accent);
-  color: #2a2207;
+  color: #ffffff;
 }
 
 .btn-outline {
@@ -180,7 +180,7 @@ h3 {
 }
 
 .section-alt {
-  background: #eef3fb;
+  background: #e6f2ff;
 }
 
 .section-label {
@@ -285,7 +285,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid rgba(14, 107, 67, 0.26);
+  outline: 2px solid rgba(77, 163, 255, 0.32);
   border-color: var(--primary);
 }
 
@@ -302,8 +302,8 @@ textarea:focus {
 }
 
 .site-footer {
-  background: #0a2f47;
-  color: #f0f9ff;
+  background: #c62828;
+  color: #fff5f5;
   padding: 2.4rem 0;
 }
 
@@ -315,7 +315,7 @@ textarea:focus {
 }
 
 .site-footer a {
-  color: #d8f0ff;
+  color: #ffe3e3;
   text-decoration: none;
 }
 
@@ -379,9 +379,9 @@ small {
   padding: 0.1rem 0.55rem;
   border-radius: 999px;
   font-size: 0.84rem;
-  background: #e8f3ee;
+  background: #e8f3ff;
   color: var(--primary-dark);
-  border: 1px solid #cce5d8;
+  border: 1px solid #bddcff;
 }
 
 .three-up {
