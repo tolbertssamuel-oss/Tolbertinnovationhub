@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard | Tolbert Innovation Hub</title>
+  <meta name="description" content="Personalized student dashboard for applications and status updates." />
+  <link rel="stylesheet" href="styles.css" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Tolbert Innovation Hub</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="scholarship.html">Scholarship Program</a>
+        <a href="healthcare.html">Healthcare Exposure</a>
+        <a href="software.html">Software Platform</a>
+        <a class="active" aria-current="page" href="portal-dashboard.html">Student Portal</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="section">
+    <div class="container">
+      <p class="section-label">Personal Dashboard</p>
+      <h1 class="page-title">Welcome, <span id="student-name">Student</span></h1>
+      <p class="section-intro">View your scholarship profile and latest updates.</p>
+
+      <div class="cards two-up">
+        <article class="card">
+          <h3>Account Information</h3>
+          <p><strong>Email:</strong> <span id="student-email">-</span></p>
+          <p><strong>Phone:</strong> <span id="student-phone">-</span></p>
+          <p><strong>Program:</strong> <span id="student-program">-</span></p>
+        </article>
+        <article class="card">
+          <h3>Application Status</h3>
+          <ul class="list-tight">
+            <li>✅ Account created successfully</li>
+            <li>🕒 Application review: In progress</li>
+            <li>🕒 Admission letter stage: Pending qualification review</li>
+          </ul>
+          <button id="logout-btn" class="btn btn-primary" type="button">Log Out</button>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><p><strong>Email:</strong> <a href="mailto:tolbertinnovationhub@gmail.com">tolbertinnovationhub@gmail.com</a></p><p><strong>Phone:</strong> <a href="tel:+231880559227">+231 880 559 227</a></p></div></footer>
+  <script src="portal-auth.js"></script>
+</body>
+</html>

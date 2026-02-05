@@ -331,3 +331,19 @@ textarea:focus {
 
   .nav-links { gap: 0.8rem; }
 }
+
+.portal-wrap {
+  max-width: 760px;
+}
+
+.inner-form {
+  margin-top: 1rem;
+  box-shadow: none;
+  border-style: dashed;
+}
+
+.security-note {
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
+  color: #334155;
+}
