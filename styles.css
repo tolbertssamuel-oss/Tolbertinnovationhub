@@ -45,19 +45,8 @@ a { color: inherit; }
   font-weight: 800;
   color: var(--primary-dark);
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
 }
 
-.brand-logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  object-fit: contain;
-}
 
 .nav-links { display: flex; flex-wrap: wrap; gap: 1.1rem; }
 .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; }
@@ -238,19 +227,6 @@ textarea:focus {
   padding: 2.6rem 0;
 }
 
-.footer-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-}
-
-.footer-brand img {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: #fff;
-}
 
 .footer-grid {
   display: flex;
