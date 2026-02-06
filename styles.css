@@ -3,7 +3,7 @@
   --primary-dark: #780000;
   --secondary: #0b3d91;
   --accent: #e63946;
-  --bg: #eaf2ff;
+  --bg: #dbeafe;
   --surface: #ffffff;
   --text: #1b2430;
   --muted: #556274;
@@ -20,7 +20,7 @@ body {
   font-family: "Segoe UI", Inter, Roboto, Arial, sans-serif;
   color: var(--text);
   line-height: 1.7;
-  background: var(--bg);
+  background: linear-gradient(180deg, #dbeafe 0%, #fef2f2 100%);
   font-size: 1rem;
 }
 
@@ -65,7 +65,7 @@ textarea:focus-visible {
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(219, 234, 254, 0.96);
   backdrop-filter: blur(8px);
 }
 
@@ -180,7 +180,7 @@ h3 {
 }
 
 .section-alt {
-  background: #ffe8ec;
+  background: #fee2e2;
 }
 
 .section-label {
@@ -228,7 +228,7 @@ h3 {
 .process-card,
 .form-card,
 .panel {
-  background: var(--surface);
+  background: #f8fbff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.2rem;
@@ -369,7 +369,7 @@ textarea:focus {
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 0.9rem;
-  background: #fafcff;
+  background: #eff6ff;
 }
 
 .submission-item h4 {
@@ -386,9 +386,9 @@ small {
   padding: 0.1rem 0.55rem;
   border-radius: 999px;
   font-size: 0.84rem;
-  background: #e8f3ee;
+  background: #fee2e2;
   color: var(--primary-dark);
-  border: 1px solid #cce5d8;
+  border: 1px solid #fecaca;
 }
 
 .three-up {
