@@ -77,6 +77,17 @@ textarea:focus-visible {
   gap: 1rem;
 }
 
+.nav-toggle {
+  display: none;
+  border: 1px solid var(--primary);
+  background: #ffffff;
+  color: var(--primary-dark);
+  border-radius: 10px;
+  padding: 0.45rem 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .brand {
   text-decoration: none;
   font-weight: 800;
@@ -329,11 +340,29 @@ textarea:focus {
   .nav-wrap {
     min-height: auto;
     padding: 0.85rem 0;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+  }
+
+  .nav-links.open {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .nav-links { gap: 0.8rem; }
 }
 
 .portal-wrap {
