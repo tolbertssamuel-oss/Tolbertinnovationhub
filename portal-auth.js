@@ -28,11 +28,31 @@ function saveStudents(students) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
 }
 
+function createId() {
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID();
+  }
+
+  return `tih-${Date.now()}-${Math.floor(Math.random() * 1e9)}`;
+}
+
 async function hashPassword(password) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
+  const value = String(password ?? '');
+
+  if (window.crypto?.subtle && typeof TextEncoder !== 'undefined') {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(value);
+    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(i);
+    hash |= 0;
+  }
+
+  return `fallback-${Math.abs(hash)}`;
 }
 
 function setFeedback(form, message, isError = false) {
@@ -65,32 +85,37 @@ async function handleRegister(event) {
     return;
   }
 
-  const data = new FormData(form);
-  const email = String(data.get('email')).trim().toLowerCase();
-  const password = String(data.get('password'));
-  const students = getStudents();
+  try {
+    const data = new FormData(form);
+    const email = String(data.get('email')).trim().toLowerCase();
+    const password = String(data.get('password'));
+    const students = getStudents();
 
-  if (students.some((s) => s.email === email)) {
-    setFeedback(form, 'An account with this email already exists. Please log in.', true);
-    return;
+    if (students.some((s) => s.email === email)) {
+      setFeedback(form, 'An account with this email already exists. Please log in.', true);
+      return;
+    }
+
+    const passwordHash = await hashPassword(password);
+    const student = {
+      id: createId(),
+      fullName: String(data.get('fullName')).trim(),
+      email,
+      phone: String(data.get('phone')).trim(),
+      program: String(data.get('program')).trim(),
+      passwordHash,
+      submissions: [],
+      createdAt: new Date().toISOString()
+    };
+
+    students.push(student);
+    saveStudents(students);
+    sessionStorage.setItem(SESSION_KEY, student.id);
+    window.location.href = 'portal-dashboard.html';
+  } catch (error) {
+    console.error('Registration failed:', error);
+    setFeedback(form, 'Unable to create your account right now. Please try again.', true);
   }
-
-  const passwordHash = await hashPassword(password);
-  const student = {
-    id: crypto.randomUUID(),
-    fullName: String(data.get('fullName')).trim(),
-    email,
-    phone: String(data.get('phone')).trim(),
-    program: String(data.get('program')).trim(),
-    passwordHash,
-    submissions: [],
-    createdAt: new Date().toISOString()
-  };
-
-  students.push(student);
-  saveStudents(students);
-  sessionStorage.setItem(SESSION_KEY, student.id);
-  window.location.href = 'portal-dashboard.html';
 }
 
 async function handleLogin(event) {
@@ -102,19 +127,24 @@ async function handleLogin(event) {
     return;
   }
 
-  const data = new FormData(form);
-  const email = String(data.get('email')).trim().toLowerCase();
-  const passwordHash = await hashPassword(String(data.get('password')));
-  const students = getStudents();
-  const student = students.find((s) => s.email === email && s.passwordHash === passwordHash);
+  try {
+    const data = new FormData(form);
+    const email = String(data.get('email')).trim().toLowerCase();
+    const passwordHash = await hashPassword(String(data.get('password')));
+    const students = getStudents();
+    const student = students.find((s) => s.email === email && s.passwordHash === passwordHash);
 
-  if (!student) {
-    setFeedback(form, 'Invalid login credentials. Please try again.', true);
-    return;
+    if (!student) {
+      setFeedback(form, 'Invalid login credentials. Please try again.', true);
+      return;
+    }
+
+    sessionStorage.setItem(SESSION_KEY, student.id);
+    window.location.href = 'portal-dashboard.html';
+  } catch (error) {
+    console.error('Login failed:', error);
+    setFeedback(form, 'Unable to log in right now. Please try again.', true);
   }
-
-  sessionStorage.setItem(SESSION_KEY, student.id);
-  window.location.href = 'portal-dashboard.html';
 }
 
 function renderSubmissionHistory(student) {
@@ -231,7 +261,7 @@ function handleApplicationSubmission(event) {
 
   const data = new FormData(form);
   const submission = {
-    id: crypto.randomUUID(),
+    id: createId(),
     applicationType: String(data.get('applicationType')).trim(),
     targetProgram: String(data.get('targetProgram')).trim(),
     summary: String(data.get('summary')).trim(),
