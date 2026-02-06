@@ -322,7 +322,7 @@ textarea:focus {
 .site-footer a:hover { text-decoration: underline; }
 
 .site-footer .copyright {
-  margin: 1.25rem 0 0;
+  margin: 0.35rem 0 0;
   width: 100%;
   font-size: 0.9rem;
   color: #cbe3f0;
