@@ -1,9 +1,9 @@
 :root {
-  --primary: #0e6b43;
-  --primary-dark: #09462c;
-  --secondary: #0c2f75;
-  --accent: #f5b335;
-  --bg: #f4f7fb;
+  --primary: #c1121f;
+  --primary-dark: #780000;
+  --secondary: #0b3d91;
+  --accent: #e63946;
+  --bg: #eaf2ff;
   --surface: #ffffff;
   --text: #1b2430;
   --muted: #556274;
@@ -106,7 +106,7 @@ textarea:focus-visible {
 }
 
 .hero {
-  background: linear-gradient(120deg, #0f6f45, #0c2f75);
+  background: linear-gradient(120deg, #0b3d91, #c1121f);
   color: #fff;
   padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(2.8rem, 5vw, 4.5rem);
 }
@@ -180,7 +180,7 @@ h3 {
 }
 
 .section-alt {
-  background: #eef3fb;
+  background: #ffe8ec;
 }
 
 .section-label {
@@ -302,7 +302,7 @@ textarea:focus {
 }
 
 .site-footer {
-  background: #0a2f47;
+  background: #0b3d91;
   color: #f0f9ff;
   padding: 2.4rem 0;
 }
