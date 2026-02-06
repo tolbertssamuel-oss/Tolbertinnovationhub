@@ -1,0 +1,15 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Tolbert Innovation Hub Logo</title>
+  <desc id="desc">Circular logo with TIH initials in light blue and red.</desc>
+  <defs>
+    <linearGradient id="grad" x1="8" y1="8" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#64B5F6"/>
+      <stop offset="1" stop-color="#C62828"/>
+    </linearGradient>
+  </defs>
+  <circle cx="48" cy="48" r="44" fill="url(#grad)"/>
+  <circle cx="48" cy="48" r="38" fill="white" fill-opacity="0.95"/>
+  <path d="M22 33H50V41H40V63H32V41H22V33Z" fill="#1F6FD1"/>
+  <path d="M54 33H62V44H72V33H80V63H72V52H62V63H54V33Z" fill="#C62828"/>
+  <rect x="20" y="69" width="56" height="6" rx="3" fill="#1F6FD1"/>
+</svg>
