@@ -66,7 +66,7 @@ textarea:focus-visible {
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(90deg, rgba(12, 47, 117, 0.94), rgba(158, 29, 45, 0.92));
+  background: #f8fbff;
   backdrop-filter: blur(8px);
 }
 
@@ -84,7 +84,26 @@ textarea:focus-visible {
   font-weight: 800;
   font-size: 1.04rem;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: #163a7a;
+  font-family: "Segoe UI", Inter, Roboto, Arial, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  line-height: 1.2;
 }
 
 .nav-links {
@@ -96,15 +115,15 @@ textarea:focus-visible {
 .nav-links a {
   text-decoration: none;
   font-weight: 600;
-  color: #f5f8ff;
+  color: #1f355e;
   padding: 0.2rem 0;
   border-bottom: 2px solid transparent;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: #ffffff;
-  border-bottom-color: #ffffff;
+  color: #9e1d2d;
+  border-bottom-color: #9e1d2d;
 }
 
 
@@ -221,7 +240,7 @@ h3 {
 
 .section-intro {
   max-width: 75ch;
-  color: #f5f8ff;
+  color: #1f355e;
 }
 
 .cards,
@@ -357,7 +376,17 @@ textarea:focus {
   }
 
   .brand {
-    padding-right: 5.5rem;
+    max-width: calc(100% - 6.2rem);
+    padding-right: 0.5rem;
+  }
+
+  .brand-text {
+    font-size: 0.92rem;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
   }
 
   .menu-toggle {
@@ -378,7 +407,7 @@ textarea:focus {
     pointer-events: none;
     transform: translateY(-0.25rem);
     transition: max-height 0.28s ease, opacity 0.2s ease, transform 0.28s ease;
-    background: linear-gradient(180deg, rgba(12, 47, 117, 0.97), rgba(158, 29, 45, 0.96));
+    background: #f8fbff;
     border-radius: 12px;
     margin-top: 0.7rem;
     padding: 0 0.8rem;
@@ -396,8 +425,8 @@ textarea:focus {
     display: block;
     width: 100%;
     padding: 0.55rem 0;
-    color: #f8fbff;
-    border-bottom-color: rgba(248, 251, 255, 0.35);
+    color: #1f355e;
+    border-bottom-color: rgba(31, 53, 94, 0.2);
   }
 }
 
