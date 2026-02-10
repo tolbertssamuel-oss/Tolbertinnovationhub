@@ -75,6 +75,7 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  position: relative;
 }
 
 .brand {
@@ -111,10 +112,10 @@ textarea:focus-visible {
   align-items: center;
   gap: 0.4rem;
   min-height: 44px;
-  border: 1px solid #bfd0e5;
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 10px;
-  background: #fff;
-  color: var(--secondary);
+  background: linear-gradient(135deg, #0c2f75, #9e1d2d);
+  color: #fff;
   font-weight: 700;
   padding: 0.45rem 0.85rem;
 }
@@ -339,13 +340,20 @@ textarea:focus {
   .nav-wrap {
     min-height: auto;
     padding: 0.85rem 0;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
+  }
+
+  .brand {
+    padding-right: 5.5rem;
   }
 
   .menu-toggle {
     display: inline-flex;
-    margin-left: auto;
+    position: absolute;
+    top: 0.75rem;
+    right: 0;
+    z-index: 2;
   }
 
   .nav-links {
@@ -358,6 +366,10 @@ textarea:focus {
     pointer-events: none;
     transform: translateY(-0.25rem);
     transition: max-height 0.28s ease, opacity 0.2s ease, transform 0.28s ease;
+    background: linear-gradient(180deg, rgba(12, 47, 117, 0.97), rgba(158, 29, 45, 0.96));
+    border-radius: 12px;
+    margin-top: 0.7rem;
+    padding: 0 0.8rem;
   }
 
   .nav-wrap.nav-open .nav-links {
@@ -365,14 +377,22 @@ textarea:focus {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
-    padding-top: 0.7rem;
+    padding: 0.7rem 0.8rem;
   }
 
   .nav-links a {
     display: block;
     width: 100%;
     padding: 0.55rem 0;
+    color: #f8fbff;
+    border-bottom-color: rgba(248, 251, 255, 0.35);
   }
+}
+
+.copyright-note {
+  margin: 0.45rem 0 0;
+  font-size: 0.92rem;
+  color: #dbeafe;
 }
 
 .portal-wrap {
