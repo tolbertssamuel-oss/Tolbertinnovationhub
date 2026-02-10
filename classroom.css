@@ -68,3 +68,57 @@ textarea,input,select { width: 100%; font: inherit; border: 1px solid #cdd8e7; b
   .nav-open .nav-links { max-height: 520px; opacity: 1; pointer-events: auto; padding: .7rem; }
   .lesson-layout { grid-template-columns: 1fr; }
 }
+
+
+.module-section {
+  margin-top: 1.2rem;
+  scroll-margin-top: 90px;
+}
+
+.level-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.7rem 0 1rem;
+}
+
+.level-label {
+  font-weight: 700;
+  color: #1e365e;
+}
+
+.level-pill {
+  border: 1px solid #bfd2ec;
+  background: #f8fbff;
+  color: #1a4f9f;
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+}
+
+.resource-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fcfdff;
+  padding: 0.85rem;
+}
+
+.resource-card h3 {
+  margin-top: 0;
+  color: #143b75;
+}
+
+.module-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
