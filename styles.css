@@ -105,6 +105,20 @@ textarea:focus-visible {
   border-bottom-color: var(--primary);
 }
 
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  border: 1px solid #bfd0e5;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--secondary);
+  font-weight: 700;
+  padding: 0.45rem 0.85rem;
+}
+
 .hero {
   background: linear-gradient(120deg, #0f6f45, #0c2f75);
   color: #fff;
@@ -325,11 +339,40 @@ textarea:focus {
   .nav-wrap {
     min-height: auto;
     padding: 0.85rem 0;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
-  .nav-links { gap: 0.8rem; }
+  .menu-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.35rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateY(-0.25rem);
+    transition: max-height 0.28s ease, opacity 0.2s ease, transform 0.28s ease;
+  }
+
+  .nav-wrap.nav-open .nav-links {
+    max-height: 520px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    padding-top: 0.7rem;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 0.55rem 0;
+  }
 }
 
 .portal-wrap {
