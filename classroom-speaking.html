@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speaking Section | Classroom</title>
+  <link rel="stylesheet" href="classroom.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="classroom.html"><img src="https://i.ibb.co/SXJKRq0S/Tolbert-Innovation-Logo.jpg" alt="Tolbert logo"/><span>Tolbert Classroom</span></a>
+    <nav class="nav-links">
+      <a href="classroom.html">Classroom</a>
+      <a href="classroom-dashboard.html">Dashboard</a>
+      <a href="classroom-resource-center.html">Resource Center</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container grid-2">
+    <article class="card">
+      <h1 class="page-title">Speaking Section</h1>
+      <p class="section-lead">Practice speaking with direct in-browser audio recording and upload options.</p>
+      <div class="lesson-toolbar">
+        <button class="btn btn-secondary" id="record-start-btn" type="button">Start Recording</button>
+        <button class="btn btn-outline" id="record-stop-btn" type="button" disabled>Stop Recording</button>
+      </div>
+      <p id="recording-status" class="form-feedback">Recorder idle.</p>
+      <audio id="recording-playback" controls style="width:100%; margin-top:.7rem;"></audio>
+      <a id="recording-download" class="btn btn-primary" style="margin-top:.7rem; display:none;" download="speaking-practice.webm">Download Recording</a>
+
+      <h3>Upload Existing Practice</h3>
+      <label>Upload speaking file
+        <input type="file" id="speaking-upload-input" accept="audio/*,video/*" />
+      </label>
+      <p id="speaking-upload-status" class="form-feedback"></p>
+    </article>
+
+    <article class="card">
+      <h2>Embedded Video Lessons</h2>
+      <iframe width="100%" height="240" src="https://www.youtube.com/embed/6c4bS6dDqF8" title="IELTS Speaking Tips" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" height="240" src="https://www.youtube.com/embed/_hVf5I0LwAk" title="TOEFL Speaking Tips" frameborder="0" allowfullscreen></iframe>
+      <h3>Downloadable Practice Materials</h3>
+      <ul class="resource-list">
+        <li><a href="materials/academic-vocabulary-pack.pdf" download>Speaking Vocabulary Pack (PDF)</a></li>
+        <li><a href="materials/ielts-study-planner.pdf" download>Weekly Speaking Planner (PDF)</a></li>
+      </ul>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container footer-grid"><div><p><strong>Speaking Practice</strong></p></div><div><p><a href="classroom-dashboard.html">Dashboard</a></p></div><div><p><a href="classroom-video-lessons.html">More Video Lessons</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
+<script src="classroom.js"></script>
+</body>
+</html>
