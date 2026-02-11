@@ -317,6 +317,28 @@ function wireSpeakingRecording() {
   });
 }
 
+
+function renderSkillCardProgress() {
+  const reading = getJSON('classroom_reading_score', null);
+  const listening = getJSON('classroom_listening_score', null);
+  const writingCount = Number(localStorage.getItem('classroom_writing_submissions') || 0);
+  const speakingCount = Number(localStorage.getItem('classroom_speaking_recordings') || 0);
+
+  const progressBySkill = {
+    reading: reading?.percent || 0,
+    listening: listening?.percent || 0,
+    writing: Math.min(100, writingCount * 20),
+    speaking: Math.min(100, speakingCount * 20)
+  };
+
+  Object.entries(progressBySkill).forEach(([skill, percent]) => {
+    const fill = document.querySelector(`[data-skill-progress-fill="${skill}"]`);
+    const label = document.querySelector(`[data-skill-progress-label="${skill}"]`);
+    if (fill) fill.style.width = `${percent}%`;
+    if (label) label.textContent = `Progress: ${percent}%`;
+  });
+}
+
 function renderDashboardMetrics() {
   const reading = getJSON('classroom_reading_score', null);
   const listening = getJSON('classroom_listening_score', null);
@@ -343,3 +365,4 @@ wireAutoScoring();
 wireWritingSubmission();
 wireSpeakingRecording();
 renderDashboardMetrics();
+renderSkillCardProgress();
