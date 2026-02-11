@@ -1,1 +1,84 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Reading Section | Classroom</title><link rel="stylesheet" href="classroom.css"/></head><body><header class="site-header"><div class="container nav-wrap"><a class="brand" href="classroom.html"><img src="https://i.ibb.co/SXJKRq0S/Tolbert-Innovation-Logo.jpg" alt="Tolbert logo"/><span>Tolbert Classroom</span></a><nav class="nav-links"><a class="active" href="classroom.html">Classroom</a><a  href="classroom-dashboard.html">Dashboard</a><a  href="classroom-resource-center.html">Resource Center</a></nav></div></header><main class="section"><div class="container"><h1 class="page-title">Reading Section</h1><p class="section-lead">Focused reading training for IELTS and TOEFL with format-specific strategy, free links, and downloadable learning supports.</p><div class="grid-2"><article class="card"><h3>IELTS Reading</h3><p>Train passage strategy, skimming/scanning, and question matching for IELTS Reading.</p><h4>Format Focus</h4><p>3 passages with multiple question types under strict timing.</p><h4>Scoring Focus</h4><p>Band score based on correct answers converted to band level.</p><h4>Preparation Strategy</h4><ul><li>Practice passage mapping before answering.</li><li>Use evidence-based elimination.</li><li>Track timing per passage.</li></ul><h4>Free Practice Links</h4><ul class="resource-list"><li><a href="https://takeielts.britishcouncil.org/take-ielts/prepare/free-ielts-english-practice-tests" target="_blank" rel="noopener noreferrer">British Council Reading Practice</a></li><li><a href="https://www.ieltsbuddy.com/ielts-practice-tests.html" target="_blank" rel="noopener noreferrer">IELTS Buddy Reading Tests</a></li></ul><h4>Downloads</h4><ul class="resource-list"><li><a href="#">IELTS Reading worksheet (PDF)</a></li><li><a href="#">IELTS Reading vocabulary list</a></li></ul></article><article class="card"><h3>TOEFL Reading</h3><p>Build academic reading speed and evidence tracking for TOEFL reading sets.</p><h4>Format Focus</h4><p>Academic passages with integrated question groups.</p><h4>Scoring Focus</h4><p>Section score contributes to total TOEFL score (0-30).</p><h4>Preparation Strategy</h4><ul><li>Preview question types before reading.</li><li>Focus on inference and main idea patterns.</li><li>Review wrong answers by reason.</li></ul><h4>Free Practice Links</h4><ul class="resource-list"><li><a href="https://www.testglider.com/toefl/en/mock-tests" target="_blank" rel="noopener noreferrer">TestGlider TOEFL Reading</a></li><li><a href="https://www.toeflresources.com/" target="_blank" rel="noopener noreferrer">TOEFL Resources Reading</a></li></ul><h4>Downloads</h4><ul class="resource-list"><li><a href="#">TOEFL Reading worksheet (PDF)</a></li><li><a href="#">TOEFL Reading grammar guide</a></li></ul></article></div></div></main><footer class="site-footer"><div class="container footer-grid"><div><p><strong>Tolbert Classroom</strong></p><p>IELTS & TOEFL complete preparation ecosystem.</p></div><div><p><a href="classroom-ielts-home.html">IELTS Home</a> · <a href="classroom-toefl-home.html">TOEFL Home</a></p></div><div><p><a href="classroom-dashboard.html">Student Dashboard</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer><script src="classroom.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reading Practice | Classroom</title>
+  <link rel="stylesheet" href="classroom.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="classroom.html"><img src="https://i.ibb.co/SXJKRq0S/Tolbert-Innovation-Logo.jpg" alt="Tolbert logo"/><span>Tolbert Classroom</span></a>
+    <nav class="nav-links">
+      <a href="classroom.html">Classroom</a>
+      <a href="classroom-dashboard.html">Dashboard</a>
+      <a href="classroom-resource-center.html">Resource Center</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+    <h1 class="page-title">Reading Practice</h1>
+    <p class="section-lead">Complete a timed mini reading set with instant auto-scoring and dashboard sync.</p>
+
+    <div class="grid-2">
+      <article class="card">
+        <h2>Reading Timer</h2>
+        <p id="practice-timer-display" class="timer-display" data-duration-minutes="20">20:00</p>
+        <div class="lesson-toolbar">
+          <button class="btn btn-secondary" id="practice-timer-start" type="button">Start</button>
+          <button class="btn btn-secondary" id="practice-timer-pause" type="button">Pause</button>
+          <button class="btn btn-primary" id="practice-timer-reset" type="button">Reset</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Need More Reading Practice?</h2>
+        <ul class="resource-list">
+          <li><a href="https://ielts.org/take-a-test/preparation-resources" target="_blank" rel="noopener noreferrer">IELTS official reading preparation</a></li>
+          <li><a href="https://www.ets.org/toefl/test-takers/ibt/prepare.html" target="_blank" rel="noopener noreferrer">ETS TOEFL preparation resources</a></li>
+          <li><a href="classroom-practice-tests.html">Open full practice tests page</a></li>
+        </ul>
+      </article>
+    </div>
+
+    <article class="card" style="margin-top: 1rem;">
+      <h2>Auto-Scored Reading Check</h2>
+      <form class="form-stack" data-score-type="reading">
+        <label>1) What is the writer's primary purpose?
+          <select data-correct="explain-a-process" required>
+            <option value="">Select</option>
+            <option value="argue-an-opinion">Argue an opinion</option>
+            <option value="explain-a-process">Explain a process</option>
+            <option value="tell-a-story">Tell a story</option>
+          </select>
+        </label>
+        <label>2) Which heading best fits paragraph 2?
+          <select data-correct="urban-adaptation" required>
+            <option value="">Select</option>
+            <option value="rural-farming">Rural farming</option>
+            <option value="urban-adaptation">Urban adaptation</option>
+            <option value="medical-breakthrough">Medical breakthrough</option>
+          </select>
+        </label>
+        <label>3) The term “resilient” is closest in meaning to:
+          <select data-correct="able-to-recover" required>
+            <option value="">Select</option>
+            <option value="easily-broken">Easily broken</option>
+            <option value="able-to-recover">Able to recover</option>
+            <option value="quickly-fading">Quickly fading</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" type="submit">Submit Reading Answers</button>
+      </form>
+      <p id="reading-score-feedback" class="form-feedback"></p>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container footer-grid"><div><p><strong>Reading Practice</strong></p></div><div><p><a href="classroom-dashboard.html">View Progress Dashboard</a></p></div><div><p><a href="classroom-practice-tests.html">Practice Test Hub</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
+<script src="classroom.js"></script>
+</body>
+</html>

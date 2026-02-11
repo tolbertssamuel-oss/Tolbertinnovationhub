@@ -173,7 +173,12 @@ function wirePracticeTimer() {
 
   const pauseBtn = document.querySelector('#practice-timer-pause');
   const resetBtn = document.querySelector('#practice-timer-reset');
-  let remaining = 30 * 60;
+  const durationMins = Number(display.dataset.durationMinutes || 30);
+  const initialSeconds = Math.max(60, durationMins * 60);
+  const timerStorageKey = `classroom_practice_timer_${window.location.pathname.split('/').pop() || 'default'}`;
+  const persistedSeconds = Number(localStorage.getItem(timerStorageKey));
+
+  let remaining = Number.isFinite(persistedSeconds) && persistedSeconds > 0 ? persistedSeconds : initialSeconds;
   let timerId = null;
 
   const render = () => {
@@ -181,6 +186,8 @@ function wirePracticeTimer() {
     const ss = String(remaining % 60).padStart(2, '0');
     display.textContent = `${mm}:${ss}`;
   };
+
+  const persist = () => localStorage.setItem(timerStorageKey, String(remaining));
 
   startBtn.addEventListener('click', () => {
     if (timerId) return;
@@ -191,6 +198,7 @@ function wirePracticeTimer() {
         clearInterval(timerId);
         timerId = null;
       }
+      persist();
       render();
     }, 1000);
   });
@@ -200,12 +208,14 @@ function wirePracticeTimer() {
       clearInterval(timerId);
       timerId = null;
     }
+    persist();
   });
 
   resetBtn?.addEventListener('click', () => {
     clearInterval(timerId);
     timerId = null;
-    remaining = 30 * 60;
+    remaining = initialSeconds;
+    persist();
     render();
   });
 
@@ -219,14 +229,22 @@ function wireAutoScoring() {
       const scoreType = form.dataset.scoreType;
       const fields = Array.from(form.querySelectorAll('[data-correct]'));
       let correct = 0;
+      let answered = 0;
+
       fields.forEach((field) => {
-        if (String(field.value).trim() === field.dataset.correct) correct += 1;
+        const attempt = String(field.value || '').trim().toLowerCase();
+        const solution = String(field.dataset.correct || '').trim().toLowerCase();
+        if (attempt) answered += 1;
+        if (attempt && attempt === solution) correct += 1;
       });
+
       const total = fields.length;
-      const percent = Math.round((correct / total) * 100);
-      setJSON(`classroom_${scoreType}_score`, { correct, total, percent, at: new Date().toISOString() });
+      const percent = total ? Math.round((correct / total) * 100) : 0;
+      setJSON(`classroom_${scoreType}_score`, { correct, total, answered, percent, at: new Date().toISOString() });
       const feedback = document.querySelector(`#${scoreType}-score-feedback`);
-      if (feedback) feedback.textContent = `${scoreType.toUpperCase()} score: ${correct}/${total} (${percent}%). Saved to dashboard.`;
+      if (feedback) {
+        feedback.textContent = `${scoreType.toUpperCase()} score: ${correct}/${total} (${percent}%). Answered ${answered}/${total}. Saved to dashboard.`;
+      }
     });
   });
 }
