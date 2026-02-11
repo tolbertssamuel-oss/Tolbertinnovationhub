@@ -122,3 +122,7 @@ textarea,input,select { width: 100%; font: inherit; border: 1px solid #cdd8e7; b
   gap: 0.6rem;
   margin-top: 1rem;
 }
+
+.phase-card { margin-top: 1rem; }
+.phase-card h2 { margin-top: 0; }
+.phase-card ul { margin-top: 0.35rem; }
