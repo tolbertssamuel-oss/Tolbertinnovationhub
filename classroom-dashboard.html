@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Classroom Dashboard</title>
+  <link rel="stylesheet" href="classroom.css"/>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="classroom.html"><img src="https://i.ibb.co/SXJKRq0S/Tolbert-Innovation-Logo.jpg" alt="Tolbert logo"/><span>Tolbert Classroom</span></a>
+      <nav class="nav-links">
+        <a href="classroom.html">Classroom</a>
+        <a class="active" href="classroom-dashboard.html">Dashboard</a>
+        <a href="classroom-resource-center.html">Resource Center</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1 class="page-title">Student Dashboard</h1>
+      <p class="section-lead">View progress, continue the next lesson, and track your path to full exam readiness.</p>
+
+      <div class="grid-2 dashboard-grid">
+        <article class="card progress-wrap" data-progress-track="ielts">
+          <p class="badge">IELTS Path</p>
+          <h3>Current Progress</h3>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+          <p class="progress-label">0/12 lessons complete (0%)</p>
+          <div class="lesson-toolbar">
+            <a class="btn btn-primary next-lesson-link" href="classroom-lesson-ielts-orientation.html">Continue Learning</a>
+            <a class="btn btn-secondary" href="classroom-course-ielts.html">View Roadmap</a>
+          </div>
+        </article>
+
+        <article class="card progress-wrap" data-progress-track="toefl">
+          <p class="badge">TOEFL Path</p>
+          <h3>Current Progress</h3>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+          <p class="progress-label">0/12 lessons complete (0%)</p>
+          <div class="lesson-toolbar">
+            <a class="btn btn-primary next-lesson-link" href="classroom-lesson-toefl-orientation.html">Continue Learning</a>
+            <a class="btn btn-secondary" href="classroom-course-toefl.html">View Roadmap</a>
+          </div>
+        </article>
+      </div>
+
+      <section class="section">
+        <div class="card">
+          <p class="badge">Long-Term Direction</p>
+          <h3>IELTS & TOEFL Mastery Plan</h3>
+          <p class="section-lead">Follow a weekly and daily system from foundation (Weeks 1–4) through advanced strategy, mock readiness, and mastery (Week 25+).</p>
+          <a class="btn btn-secondary" href="classroom-mastery-plan.html">Open Mastery Plan</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><p><strong>Dashboard</strong></p><p>LMS-style progression visibility.</p></div>
+      <div><p><a href="classroom-resource-center.html">Open Resource Center</a></p></div>
+      <div><p><a href="classroom-mastery-plan.html">Long-Term Mastery Plan</a></p></div>
+    </div>
+    <p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p>
+  </footer>
+  <script src="classroom.js"></script>
+</body>
+</html>
