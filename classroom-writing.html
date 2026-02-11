@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Writing Section | Classroom</title>
+  <link rel="stylesheet" href="classroom.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="classroom.html"><img src="https://i.ibb.co/SXJKRq0S/Tolbert-Innovation-Logo.jpg" alt="Tolbert logo"/><span>Tolbert Classroom</span></a>
+    <nav class="nav-links">
+      <a href="classroom.html">Classroom</a>
+      <a href="classroom-dashboard.html">Dashboard</a>
+      <a href="classroom-resource-center.html">Resource Center</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container grid-2">
+    <article class="card">
+      <h1 class="page-title">Writing Section</h1>
+      <p class="section-lead">Submit IELTS/TOEFL writing responses for feedback workflow and progress logging.</p>
+      <form id="writing-feedback-form" class="form-stack">
+        <label>Exam Type
+          <select name="exam" required>
+            <option value="">Select exam</option>
+            <option value="IELTS">IELTS</option>
+            <option value="TOEFL">TOEFL</option>
+          </select>
+        </label>
+        <label>Task Type
+          <select name="task" required>
+            <option value="">Select task</option>
+            <option value="Task 1 / Integrated">Task 1 / Integrated</option>
+            <option value="Task 2 / Independent">Task 2 / Independent</option>
+          </select>
+        </label>
+        <label>Write your response
+          <textarea name="response" rows="10" required placeholder="Paste your full writing response here..."></textarea>
+        </label>
+        <label>Attach file (optional)
+          <input type="file" name="attachment" accept=".pdf,.doc,.docx,.txt" />
+        </label>
+        <button class="btn btn-primary" type="submit">Submit for Feedback</button>
+      </form>
+      <p id="writing-feedback-status" class="form-feedback"></p>
+    </article>
+
+    <article class="card">
+      <h2>Embedded Video Lessons</h2>
+      <iframe width="100%" height="240" src="https://www.youtube.com/embed/2b6EM3Z2GfA" title="IELTS Writing by E2" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" height="240" src="https://www.youtube.com/embed/LQ4hlxD6vQ0" title="TOEFL Writing Tips" frameborder="0" allowfullscreen></iframe>
+      <h3>Downloadable PDFs</h3>
+      <ul class="resource-list">
+        <li><a href="materials/grammar-essentials-guide.pdf" download>Grammar Essentials Guide (PDF)</a></li>
+        <li><a href="materials/academic-vocabulary-pack.pdf" download>Academic Vocabulary Pack (PDF)</a></li>
+      </ul>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container footer-grid"><div><p><strong>Writing Support</strong></p></div><div><p><a href="classroom-dashboard.html">Dashboard</a></p></div><div><p><a href="classroom-video-lessons.html">More Video Lessons</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
+<script src="classroom.js"></script>
+</body>
+</html>
