@@ -420,3 +420,15 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
   display: inline-block;
   margin-left: 0.2rem;
 }
+
+
+.module-pagination {
+  position: relative;
+  z-index: 6;
+}
+
+.module-pagination .btn {
+  pointer-events: auto;
+  position: relative;
+  z-index: 7;
+}
