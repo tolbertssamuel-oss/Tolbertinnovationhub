@@ -198,3 +198,35 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
   margin: 0.15rem 0 0.35rem;
   color: #183d74;
 }
+
+
+.course-layout-grid {
+  margin-top: 1rem;
+}
+
+.course-layout-card h3 {
+  margin: 0.2rem 0 0.5rem;
+  color: #153a70;
+}
+
+.module-list {
+  margin: 0.6rem 0 1rem;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.module-list li {
+  color: #334155;
+}
+
+.module-list a {
+  color: var(--blue-dark);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.module-list a:hover {
+  color: var(--red);
+  text-decoration: underline;
+}
