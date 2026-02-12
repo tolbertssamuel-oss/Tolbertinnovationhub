@@ -458,7 +458,20 @@ function wireIELTSModulePage() {
     else nextModuleLink.removeAttribute('tabindex');
   };
 
+  const checklistItems = Array.from(document.querySelectorAll('[data-complete-item]'));
+  const checklistFill = document.querySelector('[data-check-progress-fill]');
+  const checklistLabel = document.querySelector('[data-check-progress-label]');
+  const updateChecklistProgress = () => {
+    if (!checklistItems.length) return;
+    const checked = checklistItems.filter((item) => item.checked).length;
+    const percent = Math.round((checked / checklistItems.length) * 100);
+    if (checklistFill) checklistFill.style.width = `${percent}%`;
+    if (checklistLabel) checklistLabel.textContent = `Lesson completion checklist: ${percent}%`;
+  };
+  checklistItems.forEach((item) => item.addEventListener('change', updateChecklistProgress));
+
   const quizForm = document.querySelector('[data-ielts-quiz]');
+  const quizExplanationBox = document.querySelector('[data-quiz-explanations]');
   quizForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     const groups = Array.from(quizForm.querySelectorAll('.quiz-item'));
@@ -472,12 +485,27 @@ function wireIELTSModulePage() {
     const passed = percent >= 70;
     localStorage.setItem(`ielts_module_${moduleId}_quiz_pass`, String(passed));
     if (quizFeedback) quizFeedback.textContent = `Quiz result: ${correct}/${total} (${percent}%). ${passed ? 'Passed.' : 'Please review and retry.'}`;
+
+    if (quizExplanationBox) {
+      const explanations = groups.map((g, i) => `<li><strong>Q${i + 1}:</strong> ${g.dataset.explanation || 'Review this concept in the notes.'}</li>`).join('');
+      quizExplanationBox.innerHTML = `<h3>Answer Explanations</h3><ul class="resource-list">${explanations}</ul>`;
+    }
+  });
+
+  const reflectionText = document.querySelector('#module-reflection-text');
+  const reflectionSave = document.querySelector('#module-reflection-save');
+  const reflectionFeedback = document.querySelector('#module-reflection-feedback');
+  const reflectionKey = `ielts_module_${moduleId}_reflection`;
+  if (reflectionText) reflectionText.value = localStorage.getItem(reflectionKey) || '';
+  reflectionSave?.addEventListener('click', () => {
+    if (!reflectionText) return;
+    localStorage.setItem(reflectionKey, reflectionText.value.trim());
+    if (reflectionFeedback) reflectionFeedback.textContent = 'Reflection saved successfully.';
   });
 
   const markBtn = document.querySelector('[data-mark-module-complete]');
   markBtn?.addEventListener('click', () => {
-    const checklist = Array.from(document.querySelectorAll('[data-complete-item]'));
-    const allChecked = checklist.length > 0 && checklist.every((item) => item.checked);
+    const allChecked = checklistItems.length > 0 && checklistItems.every((item) => item.checked);
     const quizPassed = localStorage.getItem(`ielts_module_${moduleId}_quiz_pass`) === 'true';
 
     if (!allChecked) {
@@ -492,10 +520,16 @@ function wireIELTSModulePage() {
 
     localStorage.setItem(`ielts_module_${moduleId}_complete`, 'true');
     if (feedback) feedback.textContent = `Module ${moduleId} marked complete. Next module unlocked.`;
+    if (markBtn) markBtn.textContent = 'Completed ✓';
     updateNextLink();
   });
 
-  if (moduleState.completed && feedback) feedback.textContent = `Module ${moduleId} already completed. You can continue to the next module.`;
+  if (moduleState.completed && feedback) {
+    feedback.textContent = `Module ${moduleId} already completed. You can continue to the next module.`;
+    const markBtnNow = document.querySelector('[data-mark-module-complete]');
+    if (markBtnNow) markBtnNow.textContent = 'Completed ✓';
+  }
+  updateChecklistProgress();
   updateNextLink();
 }
 renderDashboardProgress();
