@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reading Practice | Classroom</title>
+  <title>Reading Module | Classroom</title>
   <link rel="stylesheet" href="classroom.css"/>
 </head>
 <body>
@@ -19,73 +19,94 @@
 </header>
 
 <main class="section">
-  <div class="container">
-    <h1 class="page-title">Reading Practice</h1>
-    <p class="section-lead">Complete a timed mini reading set with instant auto-scoring and dashboard sync.</p>
+  <div class="container skill-layout">
+    <aside class="card skill-sidebar">
+      <h3>Reading Module</h3>
+      <a href="#notes">Lesson Notes</a>
+      <a href="#video">Video Session</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#practice">Practice Test</a>
+      <a href="#quiz">Quick Quiz</a>
+      <a href="#feedback">Was this helpful?</a>
+    </aside>
 
-    <div class="grid-2">
-      <article class="card">
-        <h2>Reading Timer</h2>
+    <div>
+      <article class="card" id="notes">
+        <h1 class="page-title">Reading: Lesson Notes</h1>
+        <p class="section-lead">Learn passage mapping, skimming/scanning, and elimination strategy for IELTS and TOEFL reading.</p>
+        <ul class="resource-list">
+          <li>Step 1: Preview headings and question types first.</li>
+          <li>Step 2: Mark keywords and synonyms in questions.</li>
+          <li>Step 3: Track time by passage to avoid rushing.</li>
+        </ul>
+      </article>
+
+      <article class="card" id="video">
+        <h2>Video Session</h2>
+        <iframe width="100%" height="320" src="https://www.youtube.com/embed/EHy8r5D3Y4Q" title="TOEFL Reading Lesson" allowfullscreen></iframe>
+      </article>
+
+      <article class="card" id="downloads">
+        <h2>Downloadable Materials</h2>
+        <ul class="resource-list">
+          <li><a href="materials/ielts-study-planner.pdf" download>IELTS Study Planner (PDF)</a></li>
+          <li><a href="materials/toefl-study-planner.pdf" download>TOEFL Study Planner (PDF)</a></li>
+          <li><a href="materials/academic-vocabulary-pack.pdf" download>Academic Vocabulary Pack (PDF)</a></li>
+        </ul>
+      </article>
+
+      <article class="card" id="practice">
+        <h2>Timed Practice + Auto Scoring</h2>
         <p id="practice-timer-display" class="timer-display" data-duration-minutes="20">20:00</p>
         <div class="lesson-toolbar">
           <button class="btn btn-secondary" id="practice-timer-start" type="button">Start</button>
           <button class="btn btn-secondary" id="practice-timer-pause" type="button">Pause</button>
           <button class="btn btn-primary" id="practice-timer-reset" type="button">Reset</button>
         </div>
+        <form class="form-stack" data-score-type="reading" style="margin-top:1rem;">
+          <label>1) Best summary of paragraph 2
+            <select data-correct="urban-adaptation" required>
+              <option value="">Select</option>
+              <option value="rural-farming">Rural farming</option>
+              <option value="urban-adaptation">Urban adaptation</option>
+              <option value="energy-crisis">Energy crisis</option>
+            </select>
+          </label>
+          <label>2) “Resilient” is closest to
+            <select data-correct="able-to-recover" required>
+              <option value="">Select</option>
+              <option value="fragile">Fragile</option>
+              <option value="able-to-recover">Able to recover</option>
+              <option value="silent">Silent</option>
+            </select>
+          </label>
+          <button class="btn btn-primary" type="submit">Submit Reading Answers</button>
+        </form>
+        <p id="reading-score-feedback" class="form-feedback"></p>
       </article>
 
-      <article class="card">
-        <h2>Need More Reading Practice?</h2>
-        <ul class="resource-list">
-          <li><a href="https://ielts.org/take-a-test/preparation-resources" target="_blank" rel="noopener noreferrer">IELTS official reading preparation</a></li>
-          <li><a href="https://www.ets.org/toefl/test-takers/ibt/prepare.html" target="_blank" rel="noopener noreferrer">ETS TOEFL preparation resources</a></li>
-          <li><a href="classroom-practice-tests.html">Open full practice tests page</a></li>
-        </ul>
-      <div class="video-feature" style="margin-top:.85rem;">
-        <h3>TOEFL Reading Lesson - Master the TOEFL READING Section</h3>
-        <p class="section-lead">A focused TOEFL reading class to improve passage strategy, speed, and answer accuracy.</p>
-        <iframe width="100%" height="320" src="https://www.youtube.com/embed/EHy8r5D3Y4Q" title="TOEFL Reading Lesson - Master the TOEFL READING Section" frameborder="0" allowfullscreen></iframe>
-        <p><a href="https://youtu.be/EHy8r5D3Y4Q?si=sg3GnWLZIY9WilYQ" target="_blank" rel="noopener noreferrer">Open this reading lesson on YouTube</a></p>
-      </div>
+      <article class="card" id="quiz">
+        <h2>Quick Exit Quiz</h2>
+        <p>Before moving on: what is your strongest reading strategy today?</p>
+        <form class="form-stack">
+          <label><input type="radio" name="rquiz"/> Skimming</label>
+          <label><input type="radio" name="rquiz"/> Time control</label>
+          <label><input type="radio" name="rquiz"/> Elimination method</label>
+        </form>
+      </article>
 
+      <article class="card" id="feedback">
+        <h2>Was this helpful?</h2>
+        <div class="lesson-toolbar">
+          <button class="btn btn-secondary" type="button">Yes</button>
+          <button class="btn btn-outline-inline" type="button">Needs Improvement</button>
+        </div>
       </article>
     </div>
-
-    <article class="card" style="margin-top: 1rem;">
-      <h2>Auto-Scored Reading Check</h2>
-      <form class="form-stack" data-score-type="reading">
-        <label>1) What is the writer's primary purpose?
-          <select data-correct="explain-a-process" required>
-            <option value="">Select</option>
-            <option value="argue-an-opinion">Argue an opinion</option>
-            <option value="explain-a-process">Explain a process</option>
-            <option value="tell-a-story">Tell a story</option>
-          </select>
-        </label>
-        <label>2) Which heading best fits paragraph 2?
-          <select data-correct="urban-adaptation" required>
-            <option value="">Select</option>
-            <option value="rural-farming">Rural farming</option>
-            <option value="urban-adaptation">Urban adaptation</option>
-            <option value="medical-breakthrough">Medical breakthrough</option>
-          </select>
-        </label>
-        <label>3) The term “resilient” is closest in meaning to:
-          <select data-correct="able-to-recover" required>
-            <option value="">Select</option>
-            <option value="easily-broken">Easily broken</option>
-            <option value="able-to-recover">Able to recover</option>
-            <option value="quickly-fading">Quickly fading</option>
-          </select>
-        </label>
-        <button class="btn btn-primary" type="submit">Submit Reading Answers</button>
-      </form>
-      <p id="reading-score-feedback" class="form-feedback"></p>
-    </article>
   </div>
 </main>
 
-<footer class="site-footer"><div class="container footer-grid"><div><p><strong>Reading Practice</strong></p></div><div><p><a href="classroom-dashboard.html">View Progress Dashboard</a></p></div><div><p><a href="classroom-practice-tests.html">Practice Test Hub</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
+<footer class="site-footer"><div class="container footer-grid"><div><p><strong>Reading Module</strong></p></div><div><p><a href="classroom-dashboard.html">View Progress Dashboard</a></p></div><div><p><a href="classroom-practice-tests.html">Practice Test Hub</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
 <script src="classroom.js"></script>
 </body>
 </html>

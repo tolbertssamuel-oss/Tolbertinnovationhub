@@ -230,3 +230,24 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
   color: var(--red);
   text-decoration: underline;
 }
+
+.sticky-skill-nav-wrap { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 74px; z-index: 20; }
+.sticky-skill-nav { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.65rem 0; }
+.sticky-skill-nav a { white-space: nowrap; text-decoration: none; color: #163d74; border: 1px solid #c6d7ef; background: #f7faff; border-radius: 999px; padding: 0.4rem 0.85rem; font-weight: 700; }
+.sticky-skill-nav a:hover { color: var(--red); border-color: #9db8df; }
+
+.video-thumb img { width: 100%; border-radius: 10px; border: 1px solid var(--line); margin-bottom: 0.6rem; }
+
+.skill-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1rem; align-items: start; }
+.skill-sidebar { position: sticky; top: 136px; display: grid; gap: 0.45rem; }
+.skill-sidebar a { text-decoration: none; color: #204a84; font-weight: 700; padding: 0.35rem 0.2rem; }
+.skill-sidebar a:hover { color: var(--red); }
+
+.btn-outline-inline { background: #fff; color: var(--blue-dark); border: 1px solid #b7cae8; }
+.btn-outline-inline:hover { border-color: #8eaed8; color: var(--red); }
+
+@media (max-width: 920px) {
+  .sticky-skill-nav-wrap { top: 62px; }
+  .skill-layout { grid-template-columns: 1fr; }
+  .skill-sidebar { position: static; }
+}

@@ -22,54 +22,50 @@
     <section class="hero">
       <div class="container">
         <p class="badge">Academic Prep · IELTS & TOEFL</p>
-        <h1>Structured Online Classroom for Exam Success</h1>
-        <p>Build mastery with a clean, guided learning path: Listening, Reading, Writing, and Speaking. Start where you are and progress at your pace.</p>
+        <h1>Professional Online Classroom: From Beginner to Exam Ready</h1>
+        <p>Choose a clear pathway, study one module at a time, track progress, and keep learning on mobile or desktop with a structured learning experience.</p>
         <div class="lesson-toolbar" style="margin-top:1rem;">
-          <a class="btn btn-primary" href="classroom-login.html">Student Login</a>
-          <a class="btn btn-secondary" href="classroom-dashboard.html">View Progress Dashboard</a>
-          <a class="btn btn-outline" href="classroom-study-materials.html">Download Study Materials</a>
+          <a class="btn btn-primary" href="classroom-dashboard.html">Continue Learning</a>
+          <a class="btn btn-secondary" href="classroom-login.html">Student Login</a>
+          <a class="btn btn-outline" href="classroom-practice-tests.html">Take Practice Test</a>
         </div>
       </div>
     </section>
 
-
-    <section class="section section-soft">
+    <section class="sticky-skill-nav-wrap">
       <div class="container">
-        <h2>Beginner English Foundation Module</h2>
-        <p class="section-lead">Designed for students who are new to IELTS/TOEFL prep or still building core English skills.</p>
+        <nav class="sticky-skill-nav" aria-label="Skill section navigation">
+          <a href="#foundation">Foundation</a>
+          <a href="#listening">Listening</a>
+          <a href="#reading">Reading</a>
+          <a href="#writing">Writing</a>
+          <a href="#speaking">Speaking</a>
+        </nav>
+      </div>
+    </section>
 
-        <div class="grid-3 foundation-grid">
-          <article class="card foundation-card">
+    <section class="section section-soft" id="foundation">
+      <div class="container">
+        <h2>Foundation Module (For Beginners)</h2>
+        <p class="section-lead">For learners in Liberia and beyond who are still building English fundamentals before full IELTS/TOEFL intensity.</p>
+        <div class="grid-3">
+          <article class="card">
             <p class="badge">Foundation A</p>
             <h3>Grammar Basics</h3>
-            <p>Learn sentence structure, verb tenses, subject-verb agreement, and common error correction.</p>
-            <ul class="resource-list">
-              <li><a href="classroom-resource-center.html#foundation-grammar">Open Grammar Basics</a></li>
-              <li><a href="materials/grammar-essentials-guide.pdf" download>Download Grammar Essentials PDF</a></li>
-            </ul>
-            <a class="btn btn-primary" href="classroom-resource-center.html#foundation-grammar">Start Grammar Practice</a>
+            <p>Sentence patterns, tense control, and high-frequency correction practice.</p>
+            <a class="btn btn-primary" href="classroom-resource-center.html#foundation-grammar">Start Lesson</a>
           </article>
-
-          <article class="card foundation-card">
+          <article class="card">
             <p class="badge">Foundation B</p>
             <h3>Academic Vocabulary Builder</h3>
-            <p>Build daily vocabulary for reading passages, lectures, writing tasks, and speaking responses.</p>
-            <ul class="resource-list">
-              <li><a href="classroom-resource-center.html#foundation-vocabulary">Open Vocabulary Builder</a></li>
-              <li><a href="materials/academic-vocabulary-pack.pdf" download>Download Vocabulary Pack PDF</a></li>
-            </ul>
-            <a class="btn btn-primary" href="classroom-resource-center.html#foundation-vocabulary">Start Vocabulary Practice</a>
+            <p>Core academic words for lectures, passages, writing, and speaking answers.</p>
+            <a class="btn btn-primary" href="classroom-resource-center.html#foundation-vocabulary">Start Lesson</a>
           </article>
-
-          <article class="card foundation-card">
+          <article class="card">
             <p class="badge">Foundation C</p>
             <h3>Simple Explanation Videos</h3>
-            <p>Watch beginner-friendly videos with clear examples and slower explanations before test-level practice.</p>
-            <ul class="resource-list">
-              <li><a href="classroom-video-lessons.html#beginner-explanations">Open Beginner Video Lessons</a></li>
-              <li><a href="classroom-study-materials.html">Use supporting study materials</a></li>
-            </ul>
-            <a class="btn btn-primary" href="classroom-video-lessons.html#beginner-explanations">Watch Beginner Videos</a>
+            <p>Beginner-friendly video lessons with slower pace and simple examples.</p>
+            <a class="btn btn-primary" href="classroom-video-lessons.html#beginner-explanations">Start Lesson</a>
           </article>
         </div>
       </div>
@@ -77,204 +73,102 @@
 
     <section class="section">
       <div class="container">
-        <h2>Section-Based Practice Modules</h2>
-        <p class="section-lead">Each module uses a card layout with goals, progress, and direct “Start Practice” actions.</p>
+        <h2>Module-by-Module Skill Track</h2>
+        <p class="section-lead">Each section has lesson notes, videos, downloadable materials, practice tests, and progress tracking.</p>
 
         <div class="cards skill-cards">
-          <article class="card skill-card" data-skill-card="listening">
-            <p class="badge">Module 1</p>
-            <h3>Listening</h3>
-            <p>Train comprehension, note-taking, and speed with mini-tests and video-led strategy sessions.</p>
+          <article class="card skill-card" id="listening" data-skill-card="listening">
+            <p class="badge">Module 1 · Listening</p>
+            <h3>Understand Lectures & Conversations</h3>
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/COV66YfOIhc/hqdefault.jpg" alt="Listening lesson thumbnail"></div>
             <div class="progress-wrap skill-progress-wrap">
               <div class="progress-bar"><div class="progress-fill" data-skill-progress-fill="listening"></div></div>
               <p class="progress-label" data-skill-progress-label="listening">Progress: 0%</p>
             </div>
             <div class="lesson-toolbar">
-              <a class="btn btn-primary" href="classroom-listening.html">Start Practice</a>
-              <a class="btn btn-secondary" href="classroom-video-lessons.html">Watch Lessons</a>
+              <a class="btn btn-primary" href="classroom-listening.html">Start Lesson</a>
+              <a class="btn btn-secondary" href="classroom-practice-tests.html">Take Practice Test</a>
             </div>
           </article>
 
-          <article class="card skill-card" data-skill-card="reading">
-            <p class="badge">Module 2</p>
-            <h3>Reading</h3>
-            <p>Practice question-type strategy and time management with auto-scored reading drills.</p>
+          <article class="card skill-card" id="reading" data-skill-card="reading">
+            <p class="badge">Module 2 · Reading</p>
+            <h3>Build Speed, Accuracy, and Strategy</h3>
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/EHy8r5D3Y4Q/hqdefault.jpg" alt="Reading lesson thumbnail"></div>
             <div class="progress-wrap skill-progress-wrap">
               <div class="progress-bar"><div class="progress-fill" data-skill-progress-fill="reading"></div></div>
               <p class="progress-label" data-skill-progress-label="reading">Progress: 0%</p>
             </div>
             <div class="lesson-toolbar">
-              <a class="btn btn-primary" href="classroom-reading.html">Start Practice</a>
-              <a class="btn btn-secondary" href="classroom-practice-tests.html">Timed Tests</a>
+              <a class="btn btn-primary" href="classroom-reading.html">Start Lesson</a>
+              <a class="btn btn-secondary" href="classroom-practice-tests.html">Take Practice Test</a>
             </div>
           </article>
 
-          <article class="card skill-card" data-skill-card="writing">
-            <p class="badge">Module 3</p>
-            <h3>Writing</h3>
-            <p>Submit essays for structured feedback practice and build stronger IELTS/TOEFL response frameworks.</p>
+          <article class="card skill-card" id="writing" data-skill-card="writing">
+            <p class="badge">Module 3 · Writing</p>
+            <h3>Organize and Submit High-Scoring Responses</h3>
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/corABi_WgYY/hqdefault.jpg" alt="Writing lesson thumbnail"></div>
             <div class="progress-wrap skill-progress-wrap">
               <div class="progress-bar"><div class="progress-fill" data-skill-progress-fill="writing"></div></div>
               <p class="progress-label" data-skill-progress-label="writing">Progress: 0%</p>
             </div>
             <div class="lesson-toolbar">
-              <a class="btn btn-primary" href="classroom-writing.html">Start Practice</a>
-              <a class="btn btn-secondary" href="classroom-study-materials.html">Writing Materials</a>
+              <a class="btn btn-primary" href="classroom-writing.html">Start Lesson</a>
+              <a class="btn btn-secondary" href="classroom-study-materials.html">Download Materials</a>
             </div>
           </article>
 
-          <article class="card skill-card" data-skill-card="speaking">
-            <p class="badge">Module 4</p>
-            <h3>Speaking</h3>
-            <p>Record speaking responses, replay your audio, and build fluency through focused drills.</p>
+          <article class="card skill-card" id="speaking" data-skill-card="speaking">
+            <p class="badge">Module 4 · Speaking</p>
+            <h3>Record, Review, and Improve Fluency</h3>
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/enV9ospxayg/hqdefault.jpg" alt="Speaking lesson thumbnail"></div>
             <div class="progress-wrap skill-progress-wrap">
               <div class="progress-bar"><div class="progress-fill" data-skill-progress-fill="speaking"></div></div>
               <p class="progress-label" data-skill-progress-label="speaking">Progress: 0%</p>
             </div>
             <div class="lesson-toolbar">
-              <a class="btn btn-primary" href="classroom-speaking.html">Start Practice</a>
-              <a class="btn btn-secondary" href="classroom-video-lessons.html">Speaking Videos</a>
+              <a class="btn btn-primary" href="classroom-speaking.html">Start Lesson</a>
+              <a class="btn btn-secondary" href="classroom-video-lessons.html">Watch Lessons</a>
             </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-
-
-    <section class="section">
-      <div class="container">
-        <h2>Course Navigation: Learn Step by Step</h2>
-        <p class="section-lead">Follow this module-by-module structure so each learner moves from introduction to lessons, practice, and review in the right order.</p>
-
-        <div class="grid-2 course-layout-grid">
-          <article class="card course-layout-card">
-            <p class="badge">IELTS Course Track</p>
-            <h3>Introduction & Module Plan</h3>
-            <p>Start with format/scoring orientation, then continue through the four skills with guided exercises and feedback tasks.</p>
-            <ol class="module-list">
-              <li><strong>Module 1:</strong> IELTS Introduction & Score Bands (<a href="classroom-ielts-home.html">open intro</a>)</li>
-              <li><strong>Module 2:</strong> Listening Lessons + Practice (<a href="classroom-listening.html">open listening</a>)</li>
-              <li><strong>Module 3:</strong> Reading Lessons + Timed Exercises (<a href="classroom-reading.html">open reading</a>)</li>
-              <li><strong>Module 4:</strong> Writing Lessons + Submission Tasks (<a href="classroom-writing.html">open writing</a>)</li>
-              <li><strong>Module 5:</strong> Speaking Lessons + Recording Practice (<a href="classroom-speaking.html">open speaking</a>)</li>
-            </ol>
-            <div class="lesson-toolbar">
-              <a class="btn btn-primary" href="classroom-course-ielts.html">Open IELTS Roadmap</a>
-              <a class="btn btn-secondary" href="classroom-practice-tests.html">Practice Exercises</a>
-            </div>
-          </article>
-
-          <article class="card course-layout-card">
-            <p class="badge">TOEFL Course Track</p>
-            <h3>Introduction & Module Plan</h3>
-            <p>Begin with TOEFL iBT orientation, then build skill strength through lessons, drills, and full practice-test routines.</p>
-            <ol class="module-list">
-              <li><strong>Module 1:</strong> TOEFL Introduction & Scoring (<a href="classroom-toefl-home.html">open intro</a>)</li>
-              <li><strong>Module 2:</strong> Listening Lessons + Exercises (<a href="classroom-listening.html">open listening</a>)</li>
-              <li><strong>Module 3:</strong> Reading Lessons + Timed Practice (<a href="classroom-reading.html">open reading</a>)</li>
-              <li><strong>Module 4:</strong> Writing Lessons + Academic Discussion Tasks (<a href="classroom-writing.html">open writing</a>)</li>
-              <li><strong>Module 5:</strong> Speaking Lessons + Response Recording (<a href="classroom-speaking.html">open speaking</a>)</li>
-            </ol>
-            <div class="lesson-toolbar">
-              <a class="btn btn-primary" href="classroom-course-toefl.html">Open TOEFL Roadmap</a>
-              <a class="btn btn-secondary" href="classroom-practice-tests.html">Practice Exercises</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="grid-2" style="margin-top:1rem;">
-          <article class="card">
-            <h3>Example Practice Questions</h3>
-            <ul class="resource-list">
-              <li><strong>Listening:</strong> What is the speaker’s main purpose in the lecture?</li>
-              <li><strong>Reading:</strong> Which sentence best summarizes paragraph 3?</li>
-              <li><strong>Writing:</strong> Write a 120-word response to the academic discussion prompt.</li>
-              <li><strong>Speaking:</strong> Respond in 45 seconds and support your opinion with one example.</li>
-            </ul>
-            <a class="btn btn-secondary" href="classroom-practice-tests.html">Try Practice Exercises</a>
-          </article>
-
-          <article class="card">
-            <h3>Example Answers & Review Guidance</h3>
-            <p>After each practice set, compare your response with model ideas, then review:</p>
-            <ul class="resource-list">
-              <li>Accuracy of key points</li>
-              <li>Time management and pacing</li>
-              <li>Grammar/vocabulary quality</li>
-              <li>Clarity and organization of ideas</li>
-            </ul>
-            <a class="btn btn-primary" href="classroom-resource-center.html">Open Review Resources</a>
           </article>
         </div>
       </div>
     </section>
 
     <section class="section section-soft">
-      <div class="container">
-        <h2>Student Testimonials</h2>
-        <div class="grid-3 testimonials-grid">
-          <article class="card testimonial-card">
-            <p>“The timed practice and auto-scoring helped me understand my weak points quickly.”</p>
-            <p><strong>— M. K., Monrovia (IELTS Student)</strong></p>
-          </article>
-          <article class="card testimonial-card">
-            <p>“I used the speaking recorder daily. My confidence improved before the real test.”</p>
-            <p><strong>— J. T., Paynesville (TOEFL Student)</strong></p>
-          </article>
-          <article class="card testimonial-card">
-            <p>“The dashboard gave me clear progress tracking and kept me consistent every week.”</p>
-            <p><strong>— S. B., Buchanan (IELTS Student)</strong></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2>FAQ: IELTS & TOEFL Prep</h2>
-        <div class="faq-list">
-          <details class="card">
-            <summary>How do I begin if I am a complete beginner?</summary>
-            <p>Start with the Listening and Reading cards above, then move to Writing and Speaking. Use the dashboard to track steady weekly progress.</p>
-          </details>
-          <details class="card">
-            <summary>Can I practice without paid materials?</summary>
-            <p>Yes. We include trusted free resources, video lessons, downloadable PDF packs, and in-browser tools for daily training.</p>
-          </details>
-          <details class="card">
-            <summary>How does the scoring work?</summary>
-            <p>Reading and Listening mini-tests are auto-scored instantly and synced to your local dashboard progress records.</p>
-          </details>
-          <details class="card">
-            <summary>Does this work on mobile phones?</summary>
-            <p>Yes. The classroom uses responsive card layouts, mobile-friendly navigation, and touch-friendly controls.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="section cta-section">
-      <div class="container cta-card">
-        <p class="badge">Support for Liberia-Based Students</p>
-        <h2>No IELTS Yet? Ask Us.</h2>
-        <p>Many students start without IELTS results. We can help you choose the right prep plan, timeline, and entry pathway for your goals.</p>
-        <div class="lesson-toolbar">
-          <a class="btn btn-primary" href="contact.html">No IELTS? Ask Us</a>
-          <a class="btn btn-secondary" href="classroom-login.html">Create Student Account</a>
-        </div>
+      <div class="container grid-2">
+        <article class="card">
+          <h2>Student Testimonials</h2>
+          <p>“The module cards helped me know what to do next every day.” <strong>— Student, Monrovia</strong></p>
+          <p>“The short quizzes and feedback section made revision easier.” <strong>— Student, Kakata</strong></p>
+        </article>
+        <article class="card">
+          <h2>FAQ</h2>
+          <p><strong>Can beginners start here?</strong><br/>Yes. Start from the Foundation module before advanced practice.</p>
+          <p><strong>Do I need IELTS already?</strong><br/>No. You can begin with English basics, then transition into exam modules.</p>
+          <a class="btn btn-secondary" href="contact.html">No IELTS? Ask Us</a>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div><p><strong>Tolbert Classroom</strong></p><p>Professional IELTS/TOEFL preparation with structured sections and practical tools.</p></div>
-      <div><p><strong>Quick Links</strong></p><p><a href="classroom-dashboard.html">Dashboard</a> · <a href="classroom-practice-tests.html">Practice Tests</a></p></div>
-      <div><p><strong>Resources</strong></p><p><a href="classroom-study-materials.html">PDF Materials</a> · <a href="classroom-video-lessons.html">Video Lessons</a></p></div>
+      <div>
+        <p><strong>Tolbert Classroom</strong></p>
+        <p>IELTS & TOEFL structured online training.</p>
+      </div>
+      <div>
+        <p><a href="classroom-ielts-home.html">IELTS Home</a> · <a href="classroom-toefl-home.html">TOEFL Home</a></p>
+      </div>
+      <div>
+        <p><a href="classroom-dashboard.html">Student Dashboard</a></p>
+      </div>
     </div>
     <p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p>
   </footer>
+
   <script src="classroom.js"></script>
 </body>
 </html>
