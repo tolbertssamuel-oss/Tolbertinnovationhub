@@ -56,26 +56,33 @@
     <article class="card" style="margin-bottom:1rem;">
       <h2>Mini Quiz (Instant Feedback)</h2>
       <form class="form-stack" data-ielts-quiz data-module-id="4">
-        <fieldset class="quiz-item" data-explanation="Task 2 requires a clear opinion or position supported with reasons and examples.">
+        <fieldset class="quiz-item" data-explanation="Task 2 requires a clear position supported by reasons and examples.">
           <legend>1) Task 2 requires...</legend>
-          <div class="quiz-option"><input id="m4q1a" type="radio" name="q1" data-correct="false"/><label for="m4q1a">No opinion</label></div>
-          <div class="quiz-option"><input id="m4q1b" type="radio" name="q1" data-correct="true"/><label for="m4q1b">Clear position with support</label></div>
-          <div class="quiz-option"><input id="m4q1c" type="radio" name="q1" data-correct="false"/><label for="m4q1c">Only bullet points</label></div>
+          <div class="quiz-option"><input id="m4q1a" type="radio" name="q1" value="a"/><label for="m4q1a">No opinion</label></div>
+          <div class="quiz-option"><input id="m4q1b" type="radio" name="q1" value="b"/><label for="m4q1b">Clear position with support</label></div>
+          <div class="quiz-option"><input id="m4q1c" type="radio" name="q1" value="c"/><label for="m4q1c">Only bullet points</label></div>
         </fieldset>
-        <fieldset class="quiz-item" data-explanation="Task 1 focuses on objective summary of key trends, comparisons, and features.">
+        <fieldset class="quiz-item" data-explanation="Task 1 should summarize major trends and comparisons, not personal stories.">
           <legend>2) Task 1 should focus on...</legend>
-          <div class="quiz-option"><input id="m4q2a" type="radio" name="q2" data-correct="false"/><label for="m4q2a">Personal stories</label></div>
-          <div class="quiz-option"><input id="m4q2b" type="radio" name="q2" data-correct="true"/><label for="m4q2b">Trends and comparisons</label></div>
-          <div class="quiz-option"><input id="m4q2c" type="radio" name="q2" data-correct="false"/><label for="m4q2c">Random details</label></div>
+          <div class="quiz-option"><input id="m4q2a" type="radio" name="q2" value="a"/><label for="m4q2a">Personal stories</label></div>
+          <div class="quiz-option"><input id="m4q2b" type="radio" name="q2" value="b"/><label for="m4q2b">Trends and comparisons</label></div>
+          <div class="quiz-option"><input id="m4q2c" type="radio" name="q2" value="c"/><label for="m4q2c">Random details</label></div>
         </fieldset>
-        <fieldset class="quiz-item" data-explanation="Band growth comes from practice, teacher feedback, and revision cycles.">
+        <fieldset class="quiz-item" data-explanation="Improvement comes from feedback and revision, not memorization alone.">
           <legend>3) Band improvement comes from...</legend>
-          <div class="quiz-option"><input id="m4q3a" type="radio" name="q3" data-correct="false"/><label for="m4q3a">Template memorization only</label></div>
-          <div class="quiz-option"><input id="m4q3b" type="radio" name="q3" data-correct="true"/><label for="m4q3b">Feedback + revision cycle</label></div>
-          <div class="quiz-option"><input id="m4q3c" type="radio" name="q3" data-correct="false"/><label for="m4q3c">Ignoring grammar</label></div>
+          <div class="quiz-option"><input id="m4q3a" type="radio" name="q3" value="a"/><label for="m4q3a">Template memorization only</label></div>
+          <div class="quiz-option"><input id="m4q3b" type="radio" name="q3" value="b"/><label for="m4q3b">Feedback + revision cycle</label></div>
+          <div class="quiz-option"><input id="m4q3c" type="radio" name="q3" value="c"/><label for="m4q3c">Ignoring grammar</label></div>
         </fieldset>
-        <button class="btn btn-primary" type="submit">Check Answers</button>
+        <fieldset class="quiz-item" data-explanation="A strong essay needs logical progression and clear paragraphing.">
+          <legend>4) Strong IELTS Writing organization means...</legend>
+          <div class="quiz-option"><input id="m4q4a" type="radio" name="q4" value="a"/><label for="m4q4a">One long paragraph only</label></div>
+          <div class="quiz-option"><input id="m4q4b" type="radio" name="q4" value="b"/><label for="m4q4b">Clear intro, body paragraphs, and conclusion</label></div>
+          <div class="quiz-option"><input id="m4q4c" type="radio" name="q4" value="c"/><label for="m4q4c">No planning before writing</label></div>
+        </fieldset>
+        <button class="btn btn-primary" type="button" id="checkAnswers">Check Answers</button>
       </form>
+      <div id="quizResult" class="form-feedback" style="margin-top:.6rem;"></div>
       <p class="form-feedback" data-quiz-feedback></p>
       <div class="quiz-explanations" data-quiz-explanations></div>
     </article>
@@ -103,5 +110,48 @@
 
 <footer class="site-footer"><div class="container footer-grid"><div><p><strong>IELTS Learning Path</strong></p></div><div><p><a href="classroom-ielts.html">Back to IELTS Dashboard</a></p></div><div><p><a href="classroom-dashboard.html">Student Dashboard</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
 <script src="classroom.js"></script>
+<script>
+  (function () {
+    const quizForm = document.querySelector('[data-ielts-quiz][data-module-id="4"]');
+    const checkButton = document.querySelector('#checkAnswers');
+    const resultBox = document.querySelector('#quizResult');
+    if (!quizForm || !checkButton || !resultBox) return;
+
+    const answerKey = {
+      q1: 'm4q1b',
+      q2: 'm4q2b',
+      q3: 'm4q3b',
+      q4: 'm4q4b'
+    };
+
+    checkButton.addEventListener('click', function () {
+      let correct = 0;
+      const total = Object.keys(answerKey).length;
+      const explanations = [];
+
+      Object.entries(answerKey).forEach(([name, expectedId], index) => {
+        const selected = quizForm.querySelector(`input[name="${name}"]:checked`);
+        if (selected && selected.id === expectedId) correct += 1;
+        const fieldset = quizForm.querySelectorAll('.quiz-item')[index];
+        explanations.push(`<li><strong>Q${index + 1}:</strong> ${fieldset?.dataset.explanation || 'Review this concept.'}</li>`);
+      });
+
+      const percent = total ? Math.round((correct / total) * 100) : 0;
+      const passed = percent >= 70;
+      localStorage.setItem('ielts_m4_quiz_pass', String(passed));
+      localStorage.setItem('ielts_module_4_quiz_pass', String(passed));
+      localStorage.setItem('ielts_m4_started', 'true');
+
+      resultBox.textContent = `Quiz result: ${correct}/${total} (${percent}%). ${passed ? 'Passed.' : 'Please review and retry.'}`;
+      const feedback = document.querySelector('[data-quiz-feedback]');
+      if (feedback) feedback.textContent = resultBox.textContent;
+      const explanationBox = document.querySelector('[data-quiz-explanations]');
+      if (explanationBox) {
+        explanationBox.innerHTML = `<h3>Answer Explanations</h3><ul class="resource-list">${explanations.join('')}</ul>`;
+      }
+    });
+  }());
+</script>
+
 </body>
 </html>
