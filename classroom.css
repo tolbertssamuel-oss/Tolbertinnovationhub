@@ -333,3 +333,32 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
   background: #e9f1ff;
   color: #1f5fbf;
 }
+
+.module-card .module-status {
+  font-weight: 700;
+  color: #334155;
+}
+
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.55;
+  filter: grayscale(0.2);
+}
+
+.quiz-item {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  margin: 0;
+}
+
+.quiz-item legend {
+  font-weight: 700;
+  color: #193f73;
+  padding: 0 0.2rem;
+}
+
+.module-pagination {
+  justify-content: space-between;
+  margin-top: 1rem;
+}

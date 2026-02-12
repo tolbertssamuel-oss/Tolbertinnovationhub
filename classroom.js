@@ -378,6 +378,126 @@ function wireLevelFilters() {
   });
 }
 
+
+
+function getIELTSModuleState(moduleId) {
+  return {
+    completed: localStorage.getItem(`ielts_module_${moduleId}_complete`) === 'true',
+    quizPassed: localStorage.getItem(`ielts_module_${moduleId}_quiz_pass`) === 'true'
+  };
+}
+
+function isIELTSModuleUnlocked(moduleId) {
+  if (moduleId <= 1) return true;
+  return localStorage.getItem(`ielts_module_${moduleId - 1}_complete`) === 'true';
+}
+
+function renderIELTSDashboard() {
+  const cards = document.querySelectorAll('[data-ielts-module-card]');
+  if (!cards.length) return;
+
+  let completedCount = 0;
+
+  cards.forEach((card) => {
+    const moduleId = Number(card.dataset.ieltsModuleCard);
+    const statusEl = card.querySelector(`[data-ielts-status="${moduleId}"]`);
+    const openLink = card.querySelector(`[data-ielts-open="${moduleId}"]`);
+    const { completed } = getIELTSModuleState(moduleId);
+    const unlocked = isIELTSModuleUnlocked(moduleId);
+
+    if (completed) completedCount += 1;
+
+    if (statusEl) {
+      if (completed) statusEl.textContent = 'Status: Completed';
+      else if (unlocked) statusEl.textContent = 'Status: In Progress';
+      else statusEl.textContent = 'Status: Locked';
+    }
+
+    if (openLink) {
+      const locked = !completed && !unlocked;
+      openLink.classList.toggle('btn-disabled', locked);
+      openLink.setAttribute('aria-disabled', String(locked));
+      if (locked) openLink.setAttribute('tabindex', '-1');
+      else openLink.removeAttribute('tabindex');
+    }
+  });
+
+  const fill = document.querySelector('#ielts-course-progress-fill');
+  const label = document.querySelector('#ielts-course-progress-label');
+  const percent = Math.round((completedCount / 6) * 100);
+  if (fill) fill.style.width = `${percent}%`;
+  if (label) label.textContent = `${completedCount} of 6 modules completed (${percent}%)`;
+}
+
+function wireIELTSModulePage() {
+  const page = document.querySelector('[data-ielts-module-page]');
+  if (!page) return;
+
+  const moduleId = Number(page.dataset.moduleId || 1);
+  const unlocked = isIELTSModuleUnlocked(moduleId);
+  const nextModuleLink = document.querySelector('[data-next-module]');
+  const feedback = document.querySelector('[data-module-feedback]');
+  const quizFeedback = document.querySelector('[data-quiz-feedback]');
+
+  if (!unlocked) {
+    if (feedback) feedback.textContent = 'This module is locked. Complete the previous module first.';
+    document.querySelectorAll('input, button, textarea, select').forEach((el) => {
+      if (!el.hasAttribute('data-allow-locked')) el.disabled = true;
+    });
+    return;
+  }
+
+  const moduleState = getIELTSModuleState(moduleId);
+  const updateNextLink = () => {
+    if (!nextModuleLink) return;
+    const isComplete = localStorage.getItem(`ielts_module_${moduleId}_complete`) === 'true';
+    const shouldDisable = !isComplete && moduleId < 6;
+    nextModuleLink.classList.toggle('btn-disabled', shouldDisable);
+    nextModuleLink.setAttribute('aria-disabled', String(shouldDisable));
+    if (shouldDisable) nextModuleLink.setAttribute('tabindex', '-1');
+    else nextModuleLink.removeAttribute('tabindex');
+  };
+
+  const quizForm = document.querySelector('[data-ielts-quiz]');
+  quizForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const groups = Array.from(quizForm.querySelectorAll('.quiz-item'));
+    let correct = 0;
+    groups.forEach((group) => {
+      const checked = group.querySelector('input[type="radio"]:checked');
+      if (checked?.dataset.correct === 'true') correct += 1;
+    });
+    const total = groups.length;
+    const percent = total ? Math.round((correct / total) * 100) : 0;
+    const passed = percent >= 70;
+    localStorage.setItem(`ielts_module_${moduleId}_quiz_pass`, String(passed));
+    if (quizFeedback) quizFeedback.textContent = `Quiz result: ${correct}/${total} (${percent}%). ${passed ? 'Passed.' : 'Please review and retry.'}`;
+  });
+
+  const markBtn = document.querySelector('[data-mark-module-complete]');
+  markBtn?.addEventListener('click', () => {
+    const checklist = Array.from(document.querySelectorAll('[data-complete-item]'));
+    const allChecked = checklist.length > 0 && checklist.every((item) => item.checked);
+    const quizPassed = localStorage.getItem(`ielts_module_${moduleId}_quiz_pass`) === 'true';
+
+    if (!allChecked) {
+      if (feedback) feedback.textContent = 'Complete all assignment checklist items before marking complete.';
+      return;
+    }
+
+    if (!quizPassed) {
+      if (feedback) feedback.textContent = 'Pass the mini quiz (70%+) before marking this module complete.';
+      return;
+    }
+
+    localStorage.setItem(`ielts_module_${moduleId}_complete`, 'true');
+    if (feedback) feedback.textContent = `Module ${moduleId} marked complete. Next module unlocked.`;
+    updateNextLink();
+  });
+
+  if (moduleState.completed && feedback) feedback.textContent = `Module ${moduleId} already completed. You can continue to the next module.`;
+  updateNextLink();
+}
 renderDashboardProgress();
 wireLessonCompletion();
 wireAnswerReveal();
@@ -389,3 +509,5 @@ wireSpeakingRecording();
 renderDashboardMetrics();
 renderSkillCardProgress();
 wireLevelFilters();
+renderIELTSDashboard();
+wireIELTSModulePage();
