@@ -165,8 +165,9 @@
           <div class="quiz-option"><input id="m3q8b" type="radio" name="q8" data-correct="true"/><label for="m3q8b">Wrong word form/grammar</label></div>
           <div class="quiz-option"><input id="m3q8c" type="radio" name="q8" data-correct="false"/><label for="m3q8c">Fast reading speed</label></div>
         </fieldset>
-        <button class="btn btn-primary" type="submit">Check Answers</button>
+        <button class="btn btn-primary" type="button" id="checkAnswers">Check Answers</button>
       </form>
+      <div id="quizResult" class="form-feedback" style="margin-top:.6rem;"></div>
       <p class="form-feedback" data-quiz-feedback></p>
       <div class="quiz-explanations" data-quiz-explanations></div>
     </article>
@@ -220,6 +221,58 @@
 
 <footer class="site-footer"><div class="container footer-grid"><div><p><strong>IELTS Learning Path</strong></p></div><div><p><a href="classroom-ielts.html">Back to IELTS Dashboard</a></p></div><div><p><a href="classroom-dashboard.html">Student Dashboard</a></p></div></div><p class="copyright-note">© 2026 Tolbert Innovation Hub. All rights reserved.</p></footer>
 <script src="classroom.js"></script>
+<script>
+  (function () {
+    const quizForm = document.querySelector('[data-ielts-quiz][data-module-id="3"]');
+    const checkButton = document.getElementById('checkAnswers');
+    const quizResult = document.getElementById('quizResult');
+    if (!quizForm || !checkButton || !quizResult) return;
+
+    const answerKey = {
+      q1: 'm3q1b',
+      q2: 'm3q2a',
+      q3: 'm3q3b',
+      q4: 'm3q4b',
+      q5: 'm3q5a',
+      q6: 'm3q6b',
+      q7: 'm3q7a',
+      q8: 'm3q8b'
+    };
+
+    checkButton.addEventListener('click', function () {
+      let correct = 0;
+      const total = Object.keys(answerKey).length;
+      const explanations = [];
+
+      Object.entries(answerKey).forEach(([name, expectedId], index) => {
+        const selected = quizForm.querySelector(`input[name="${name}"]:checked`);
+        if (selected && selected.id === expectedId) correct += 1;
+
+        const group = quizForm.querySelectorAll('.quiz-item')[index];
+        const note = group?.dataset.explanation || 'Review this concept in your notes.';
+        explanations.push(`<li><strong>Q${index + 1}:</strong> ${note}</li>`);
+      });
+
+      const percent = total ? Math.round((correct / total) * 100) : 0;
+      const passed = percent >= 70;
+      const message = `Quiz result: ${correct}/${total} (${percent}%). ${passed ? 'Passed.' : 'Please review and retry.'}`;
+
+      localStorage.setItem('ielts_m3_quiz_pass', String(passed));
+      localStorage.setItem('ielts_module_3_quiz_pass', String(passed));
+      localStorage.setItem('ielts_m3_started', 'true');
+
+      quizResult.textContent = message;
+      const feedback = document.querySelector('[data-quiz-feedback]');
+      if (feedback) feedback.textContent = message;
+
+      const explanationBox = document.querySelector('[data-quiz-explanations]');
+      if (explanationBox) {
+        explanationBox.innerHTML = `<h3>Answer Explanations</h3><ul class="resource-list">${explanations.join('')}</ul>`;
+      }
+    });
+  }());
+</script>
+
 
 
 </body>
