@@ -55,8 +55,29 @@
 
     <article class="card" style="margin-bottom:1rem;">
       <h2>Mini Quiz (Instant Feedback)</h2>
-      <form class="form-stack" data-ielts-quiz data-module-id="5"><fieldset class="quiz-item"><legend>1) Part 2 includes...</legend><label><input type="radio" name="q1" value="1" data-correct="true"/> Cue card + long turn</label><label><input type="radio" name="q1" value="2" data-correct="false"/> Essay writing</label><label><input type="radio" name="q1" value="3" data-correct="false"/> No speaking</label></fieldset><fieldset class="quiz-item"><legend>2) Strong Part 3 answers include...</legend><label><input type="radio" name="q2" value="1" data-correct="false"/> One-word replies</label><label><input type="radio" name="q2" value="2" data-correct="true"/> Reasoned explanation</label><label><input type="radio" name="q2" value="3" data-correct="false"/> Memorized script only</label></fieldset><fieldset class="quiz-item"><legend>3) Speaking score improves with...</legend><label><input type="radio" name="q3" value="1" data-correct="true"/> Regular recording review</label><label><input type="radio" name="q3" value="2" data-correct="false"/> Avoiding practice</label><label><input type="radio" name="q3" value="3" data-correct="false"/> Ignoring fluency</label></fieldset><button class="btn btn-primary" type="submit">Check Quiz</button></form>
+      <form class="form-stack" data-ielts-quiz data-module-id="5">
+        <fieldset class="quiz-item" data-explanation="Part 2 is a cue-card task with preparation time and a longer individual response.">
+          <legend>1) Part 2 includes...</legend>
+          <div class="quiz-option"><input id="m5q1a" type="radio" name="q1" data-correct="true"/><label for="m5q1a">Cue card + long turn</label></div>
+          <div class="quiz-option"><input id="m5q1b" type="radio" name="q1" data-correct="false"/><label for="m5q1b">Essay writing</label></div>
+          <div class="quiz-option"><input id="m5q1c" type="radio" name="q1" data-correct="false"/><label for="m5q1c">No speaking</label></div>
+        </fieldset>
+        <fieldset class="quiz-item" data-explanation="Part 3 rewards developed answers with reasons, examples, and comparisons.">
+          <legend>2) Strong Part 3 answers include...</legend>
+          <div class="quiz-option"><input id="m5q2a" type="radio" name="q2" data-correct="false"/><label for="m5q2a">One-word replies</label></div>
+          <div class="quiz-option"><input id="m5q2b" type="radio" name="q2" data-correct="true"/><label for="m5q2b">Reasoned explanation</label></div>
+          <div class="quiz-option"><input id="m5q2c" type="radio" name="q2" data-correct="false"/><label for="m5q2c">Memorized script only</label></div>
+        </fieldset>
+        <fieldset class="quiz-item" data-explanation="Recording and reviewing answers helps identify fluency and pronunciation weaknesses.">
+          <legend>3) Speaking score improves with...</legend>
+          <div class="quiz-option"><input id="m5q3a" type="radio" name="q3" data-correct="true"/><label for="m5q3a">Regular recording review</label></div>
+          <div class="quiz-option"><input id="m5q3b" type="radio" name="q3" data-correct="false"/><label for="m5q3b">Avoiding practice</label></div>
+          <div class="quiz-option"><input id="m5q3c" type="radio" name="q3" data-correct="false"/><label for="m5q3c">Ignoring fluency</label></div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">Check Answers</button>
+      </form>
       <p class="form-feedback" data-quiz-feedback></p>
+      <div class="quiz-explanations" data-quiz-explanations></div>
     </article>
 
     <article class="card" style="margin-bottom:1rem;">

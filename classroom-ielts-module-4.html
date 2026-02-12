@@ -55,8 +55,29 @@
 
     <article class="card" style="margin-bottom:1rem;">
       <h2>Mini Quiz (Instant Feedback)</h2>
-      <form class="form-stack" data-ielts-quiz data-module-id="4"><fieldset class="quiz-item"><legend>1) Task 2 requires...</legend><label><input type="radio" name="q1" value="1" data-correct="false"/> No opinion</label><label><input type="radio" name="q1" value="2" data-correct="true"/> Clear position with support</label><label><input type="radio" name="q1" value="3" data-correct="false"/> Only bullet points</label></fieldset><fieldset class="quiz-item"><legend>2) Task 1 should focus on...</legend><label><input type="radio" name="q2" value="1" data-correct="false"/> Personal stories</label><label><input type="radio" name="q2" value="2" data-correct="true"/> Trends and comparisons</label><label><input type="radio" name="q2" value="3" data-correct="false"/> Random details</label></fieldset><fieldset class="quiz-item"><legend>3) Band improvement comes from...</legend><label><input type="radio" name="q3" value="1" data-correct="false"/> Template memorization only</label><label><input type="radio" name="q3" value="2" data-correct="true"/> Feedback + revision cycle</label><label><input type="radio" name="q3" value="3" data-correct="false"/> Ignoring grammar</label></fieldset><button class="btn btn-primary" type="submit">Check Quiz</button></form>
+      <form class="form-stack" data-ielts-quiz data-module-id="4">
+        <fieldset class="quiz-item" data-explanation="Task 2 requires a clear opinion or position supported with reasons and examples.">
+          <legend>1) Task 2 requires...</legend>
+          <div class="quiz-option"><input id="m4q1a" type="radio" name="q1" data-correct="false"/><label for="m4q1a">No opinion</label></div>
+          <div class="quiz-option"><input id="m4q1b" type="radio" name="q1" data-correct="true"/><label for="m4q1b">Clear position with support</label></div>
+          <div class="quiz-option"><input id="m4q1c" type="radio" name="q1" data-correct="false"/><label for="m4q1c">Only bullet points</label></div>
+        </fieldset>
+        <fieldset class="quiz-item" data-explanation="Task 1 focuses on objective summary of key trends, comparisons, and features.">
+          <legend>2) Task 1 should focus on...</legend>
+          <div class="quiz-option"><input id="m4q2a" type="radio" name="q2" data-correct="false"/><label for="m4q2a">Personal stories</label></div>
+          <div class="quiz-option"><input id="m4q2b" type="radio" name="q2" data-correct="true"/><label for="m4q2b">Trends and comparisons</label></div>
+          <div class="quiz-option"><input id="m4q2c" type="radio" name="q2" data-correct="false"/><label for="m4q2c">Random details</label></div>
+        </fieldset>
+        <fieldset class="quiz-item" data-explanation="Band growth comes from practice, teacher feedback, and revision cycles.">
+          <legend>3) Band improvement comes from...</legend>
+          <div class="quiz-option"><input id="m4q3a" type="radio" name="q3" data-correct="false"/><label for="m4q3a">Template memorization only</label></div>
+          <div class="quiz-option"><input id="m4q3b" type="radio" name="q3" data-correct="true"/><label for="m4q3b">Feedback + revision cycle</label></div>
+          <div class="quiz-option"><input id="m4q3c" type="radio" name="q3" data-correct="false"/><label for="m4q3c">Ignoring grammar</label></div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">Check Answers</button>
+      </form>
       <p class="form-feedback" data-quiz-feedback></p>
+      <div class="quiz-explanations" data-quiz-explanations></div>
     </article>
 
     <article class="card" style="margin-bottom:1rem;">

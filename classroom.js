@@ -380,62 +380,108 @@ function wireLevelFilters() {
 
 
 
-function getIELTSModuleState(moduleId) {
+function getIELTSStorageKeys(moduleId) {
   return {
-    completed: localStorage.getItem(`ielts_module_${moduleId}_complete`) === 'true',
-    quizPassed: localStorage.getItem(`ielts_module_${moduleId}_quiz_pass`) === 'true'
+    done: `ielts_m${moduleId}_done`,
+    started: `ielts_m${moduleId}_started`,
+    quizPass: `ielts_m${moduleId}_quiz_pass`,
+    reflection: `ielts_m${moduleId}_reflection`,
+    legacyDone: `ielts_module_${moduleId}_complete`,
+    legacyQuizPass: `ielts_module_${moduleId}_quiz_pass`,
+    legacyReflection: `ielts_module_${moduleId}_reflection`
   };
+}
+
+function getIELTSModuleState(moduleId) {
+  const keys = getIELTSStorageKeys(moduleId);
+  const completed = localStorage.getItem(keys.done) === 'true' || localStorage.getItem(keys.legacyDone) === 'true';
+  const quizPassed = localStorage.getItem(keys.quizPass) === 'true' || localStorage.getItem(keys.legacyQuizPass) === 'true';
+  const started = completed || quizPassed || localStorage.getItem(keys.started) === 'true';
+
+  if (completed) {
+    localStorage.setItem(keys.done, 'true');
+    localStorage.setItem(keys.legacyDone, 'true');
+  }
+  if (quizPassed) {
+    localStorage.setItem(keys.quizPass, 'true');
+    localStorage.setItem(keys.legacyQuizPass, 'true');
+  }
+  if (started) localStorage.setItem(keys.started, 'true');
+
+  return { completed, quizPassed, started };
 }
 
 function isIELTSModuleUnlocked(moduleId) {
   if (moduleId <= 1) return true;
-  return localStorage.getItem(`ielts_module_${moduleId - 1}_complete`) === 'true';
+  return getIELTSModuleState(moduleId - 1).completed;
+}
+
+function getFirstIncompleteIELTSModuleLink(total = 6) {
+  for (let moduleId = 1; moduleId <= total; moduleId += 1) {
+    if (!getIELTSModuleState(moduleId).completed) return `classroom-ielts-module-${moduleId}.html`;
+  }
+  return 'classroom-dashboard.html';
 }
 
 function renderIELTSDashboard() {
   const cards = document.querySelectorAll('[data-ielts-module-card]');
   if (!cards.length) return;
 
+  const totalModules = 6;
   let completedCount = 0;
 
   cards.forEach((card) => {
     const moduleId = Number(card.dataset.ieltsModuleCard);
     const statusEl = card.querySelector(`[data-ielts-status="${moduleId}"]`);
     const openLink = card.querySelector(`[data-ielts-open="${moduleId}"]`);
-    const { completed } = getIELTSModuleState(moduleId);
+    const state = getIELTSModuleState(moduleId);
     const unlocked = isIELTSModuleUnlocked(moduleId);
 
-    if (completed) completedCount += 1;
+    if (state.completed) completedCount += 1;
 
     const iconEl = card.querySelector(`[data-ielts-status-icon="${moduleId}"]`);
     if (statusEl) {
       const textEl = statusEl.querySelector('.status-text');
-      if (completed) {
+      if (state.completed) {
         if (textEl) textEl.textContent = ' Status: Completed';
         if (iconEl) iconEl.textContent = '✅';
-      } else if (unlocked) {
+      } else if (!unlocked) {
+        if (textEl) textEl.textContent = ' Status: Locked';
+        if (iconEl) iconEl.textContent = '🔒';
+      } else if (state.started) {
         if (textEl) textEl.textContent = ' Status: In Progress';
         if (iconEl) iconEl.textContent = '🟡';
       } else {
-        if (textEl) textEl.textContent = ' Status: Locked';
-        if (iconEl) iconEl.textContent = '🔒';
+        if (textEl) textEl.textContent = ' Status: Not Started';
+        if (iconEl) iconEl.textContent = '⚪';
       }
     }
 
     if (openLink) {
-      const locked = !completed && !unlocked;
+      const locked = !unlocked;
       openLink.classList.toggle('btn-disabled', locked);
       openLink.setAttribute('aria-disabled', String(locked));
-      if (locked) openLink.setAttribute('tabindex', '-1');
-      else openLink.removeAttribute('tabindex');
+      openLink.textContent = locked ? `Locked Module ${moduleId}` : `Open Module ${moduleId}`;
+      if (locked) {
+        openLink.setAttribute('tabindex', '-1');
+        openLink.setAttribute('title', `Module ${moduleId} is locked. Complete Module ${moduleId - 1} first.`);
+      } else {
+        openLink.removeAttribute('tabindex');
+        openLink.removeAttribute('title');
+      }
     }
   });
 
   const fill = document.querySelector('#ielts-course-progress-fill');
   const label = document.querySelector('#ielts-course-progress-label');
-  const percent = Math.round((completedCount / 6) * 100);
+  const percent = Math.round((completedCount / totalModules) * 100);
   if (fill) fill.style.width = `${percent}%`;
-  if (label) label.textContent = `${completedCount} of 6 modules completed (${percent}%)`;
+  if (label) label.textContent = `${completedCount} of ${totalModules} completed (${percent}%)`;
+
+  const resumeLink = document.querySelector('#ielts-resume-link');
+  if (resumeLink) {
+    resumeLink.href = getFirstIncompleteIELTSModuleLink(totalModules);
+  }
 }
 
 function wireIELTSModulePage() {
@@ -457,9 +503,11 @@ function wireIELTSModulePage() {
   }
 
   const moduleState = getIELTSModuleState(moduleId);
+  const moduleKeys = getIELTSStorageKeys(moduleId);
+  localStorage.setItem(moduleKeys.started, 'true');
   const updateNextLink = () => {
     if (!nextModuleLink) return;
-    const isComplete = localStorage.getItem(`ielts_module_${moduleId}_complete`) === 'true';
+    const isComplete = getIELTSModuleState(moduleId).completed;
     const shouldDisable = !isComplete && moduleId < 6;
     nextModuleLink.classList.toggle('btn-disabled', shouldDisable);
     nextModuleLink.setAttribute('aria-disabled', String(shouldDisable));
@@ -492,7 +540,10 @@ function wireIELTSModulePage() {
     const total = groups.length;
     const percent = total ? Math.round((correct / total) * 100) : 0;
     const passed = percent >= 70;
-    localStorage.setItem(`ielts_module_${moduleId}_quiz_pass`, String(passed));
+    const keys = getIELTSStorageKeys(moduleId);
+    localStorage.setItem(keys.quizPass, String(passed));
+    localStorage.setItem(keys.legacyQuizPass, String(passed));
+    localStorage.setItem(keys.started, 'true');
     if (quizFeedback) quizFeedback.textContent = `Quiz result: ${correct}/${total} (${percent}%). ${passed ? 'Passed.' : 'Please review and retry.'}`;
 
     if (quizExplanationBox) {
@@ -504,18 +555,22 @@ function wireIELTSModulePage() {
   const reflectionText = document.querySelector('#module-reflection-text');
   const reflectionSave = document.querySelector('#module-reflection-save');
   const reflectionFeedback = document.querySelector('#module-reflection-feedback');
-  const reflectionKey = `ielts_module_${moduleId}_reflection`;
-  if (reflectionText) reflectionText.value = localStorage.getItem(reflectionKey) || '';
+  const keys = getIELTSStorageKeys(moduleId);
+  const reflectionValue = localStorage.getItem(keys.reflection) || localStorage.getItem(keys.legacyReflection) || '';
+  if (reflectionText) reflectionText.value = reflectionValue;
   reflectionSave?.addEventListener('click', () => {
     if (!reflectionText) return;
-    localStorage.setItem(reflectionKey, reflectionText.value.trim());
+    localStorage.setItem(keys.reflection, reflectionText.value.trim());
+    localStorage.setItem(keys.legacyReflection, reflectionText.value.trim());
+    localStorage.setItem(keys.started, 'true');
     if (reflectionFeedback) reflectionFeedback.textContent = 'Reflection saved successfully.';
   });
 
   const markBtn = document.querySelector('[data-mark-module-complete]');
   markBtn?.addEventListener('click', () => {
     const allChecked = checklistItems.length > 0 && checklistItems.every((item) => item.checked);
-    const quizPassed = localStorage.getItem(`ielts_module_${moduleId}_quiz_pass`) === 'true';
+    const moduleKeys = getIELTSStorageKeys(moduleId);
+    const quizPassed = localStorage.getItem(moduleKeys.quizPass) === 'true' || localStorage.getItem(moduleKeys.legacyQuizPass) === 'true';
 
     if (!allChecked) {
       if (feedback) feedback.textContent = 'Complete all assignment checklist items before marking complete.';
@@ -527,7 +582,9 @@ function wireIELTSModulePage() {
       return;
     }
 
-    localStorage.setItem(`ielts_module_${moduleId}_complete`, 'true');
+    localStorage.setItem(moduleKeys.done, 'true');
+    localStorage.setItem(moduleKeys.legacyDone, 'true');
+    localStorage.setItem(moduleKeys.started, 'true');
     if (feedback) feedback.textContent = `Module ${moduleId} marked complete. Next module unlocked.`;
     if (markBtn) markBtn.textContent = 'Completed ✓';
     updateNextLink();
