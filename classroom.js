@@ -356,6 +356,28 @@ function renderDashboardMetrics() {
   if (speakingEl) speakingEl.textContent = `Speaking recordings: ${speakingCount}`;
 }
 
+
+function wireLevelFilters() {
+  document.querySelectorAll('[data-level-controls]').forEach((controlRow) => {
+    const groupName = controlRow.dataset.levelControls;
+    const buttons = controlRow.querySelectorAll('[data-level]');
+    const groups = document.querySelectorAll(`[data-level-group="${groupName}"]`);
+    if (!buttons.length || !groups.length) return;
+
+    const setLevel = (level) => {
+      buttons.forEach((btn) => btn.classList.toggle('is-active', btn.dataset.level === level));
+      groups.forEach((group) => group.classList.toggle('is-active', group.dataset.level === level));
+    };
+
+    const activeBtn = controlRow.querySelector('.level-pill.is-active') || buttons[0];
+    setLevel(activeBtn.dataset.level);
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => setLevel(btn.dataset.level));
+    });
+  });
+}
+
 renderDashboardProgress();
 wireLessonCompletion();
 wireAnswerReveal();
@@ -366,3 +388,4 @@ wireWritingSubmission();
 wireSpeakingRecording();
 renderDashboardMetrics();
 renderSkillCardProgress();
+wireLevelFilters();
