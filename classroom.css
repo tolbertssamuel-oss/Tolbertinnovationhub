@@ -251,3 +251,25 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
   .skill-layout { grid-template-columns: 1fr; }
   .skill-sidebar { position: static; }
 }
+
+.entry-grid {
+  margin-top: 1rem;
+}
+
+.exam-entry {
+  border-top: 4px solid #b9cdee;
+}
+
+.exam-entry-ielts {
+  border-top-color: #c32d3d;
+}
+
+.exam-entry-toefl {
+  border-top-color: #1f5fbf;
+}
+
+.exam-meta {
+  margin: 0.25rem 0 0.55rem;
+  color: #46556f;
+  font-weight: 700;
+}
