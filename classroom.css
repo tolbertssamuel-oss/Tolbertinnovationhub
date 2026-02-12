@@ -468,3 +468,27 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
 .quiz-item {
   margin-bottom: 0.65rem;
 }
+
+
+.quiz-item, .quiz-option {
+  position: relative;
+  z-index: 1;
+}
+
+.quiz-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: start;
+  margin-top: 0.5rem;
+}
+
+.quiz-option input[type="radio"] {
+  margin-top: 0.2rem;
+  pointer-events: auto;
+}
+
+.quiz-option label {
+  cursor: pointer;
+  pointer-events: auto;
+}
