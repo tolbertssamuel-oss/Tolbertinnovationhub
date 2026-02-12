@@ -407,10 +407,19 @@ function renderIELTSDashboard() {
 
     if (completed) completedCount += 1;
 
+    const iconEl = card.querySelector(`[data-ielts-status-icon="${moduleId}"]`);
     if (statusEl) {
-      if (completed) statusEl.textContent = 'Status: Completed';
-      else if (unlocked) statusEl.textContent = 'Status: In Progress';
-      else statusEl.textContent = 'Status: Locked';
+      const textEl = statusEl.querySelector('.status-text');
+      if (completed) {
+        if (textEl) textEl.textContent = ' Status: Completed';
+        if (iconEl) iconEl.textContent = '✅';
+      } else if (unlocked) {
+        if (textEl) textEl.textContent = ' Status: In Progress';
+        if (iconEl) iconEl.textContent = '🟡';
+      } else {
+        if (textEl) textEl.textContent = ' Status: Locked';
+        if (iconEl) iconEl.textContent = '🔒';
+      }
     }
 
     if (openLink) {
