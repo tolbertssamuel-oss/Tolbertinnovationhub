@@ -5,7 +5,9 @@ if (navWrap && navLinks) {
   if (!navLinks.id) navLinks.id = 'classroom-navigation';
 
   const optionalLinks = [
-    { href: 'classroom-mastery-plan.html', label: 'Mastery Plan' },
+    { href: 'classroom-ielts.html', label: 'IELTS Home' },
+    { href: 'classroom-resource-center.html', label: 'Resource Center' },
+    { href: 'classroom-practice-tests.html', label: 'Practice Tests' },
     { href: 'classroom-login.html', label: 'Login' }
   ];
 
@@ -380,6 +382,65 @@ function wireLevelFilters() {
 
 
 
+
+function enhanceIELTSModuleLayout() {
+  const page = document.querySelector('[data-ielts-module-page]');
+  if (!page) return;
+
+  const moduleId = Number(page.dataset.moduleId || 1);
+  const container = document.querySelector('main .container');
+  if (!container) return;
+
+  if (!container.querySelector('.breadcrumb')) {
+    const crumbs = document.createElement('p');
+    crumbs.className = 'breadcrumb';
+    crumbs.textContent = `IELTS Classroom → Module ${moduleId}`;
+    container.insertBefore(crumbs, container.firstChild);
+  }
+
+  const headerCard = container.querySelector('article.card');
+  if (headerCard && !headerCard.querySelector('[data-estimated-time]')) {
+    const defaults = { 1: '60–80 minutes', 2: '70–90 minutes', 3: '90–120 minutes', 4: '90–110 minutes', 5: '75–95 minutes', 6: '120–150 minutes' };
+    const timeP = document.createElement('p');
+    timeP.setAttribute('data-estimated-time', 'true');
+    timeP.innerHTML = `<strong>Estimated completion time:</strong> ${defaults[moduleId] || '75–95 minutes'}`;
+    const lead = headerCard.querySelector('.section-lead');
+    if (lead) lead.insertAdjacentElement('afterend', timeP);
+    else headerCard.appendChild(timeP);
+  }
+
+  const sectionCards = Array.from(container.querySelectorAll('article.card'));
+  const practiceCard = sectionCards.find((card) => /Practice/.test(card.querySelector('h2')?.textContent || ''));
+  if (practiceCard && !practiceCard.querySelector('details.answer-key')) {
+    const details = document.createElement('details');
+    details.className = 'answer-key';
+    details.innerHTML = '<summary>Show Answers + Explanations</summary><ul class="resource-list"><li><strong>Suggested approach:</strong> Compare your response with the model strategy points in the lesson article.</li><li><strong>Why this works:</strong> IELTS rewards accurate task response, clear organization, and controlled language.</li></ul>';
+    practiceCard.appendChild(details);
+  }
+
+  const assignmentCard = sectionCards.find((card) => /Assignment|Reflection/.test(card.querySelector('h2')?.textContent || ''));
+  if (assignmentCard && !assignmentCard.querySelector('#module-reflection-text')) {
+    const label = document.createElement('label');
+    label.textContent = 'Reflection / Submission Notes';
+    const ta = document.createElement('textarea');
+    ta.id = 'module-reflection-text';
+    ta.rows = 5;
+    ta.placeholder = 'Write what you learned, what was difficult, and your improvement plan...';
+    label.appendChild(ta);
+    assignmentCard.insertBefore(label, assignmentCard.querySelector('[data-module-checklist]') || assignmentCard.lastElementChild);
+
+    const saveWrap = document.createElement('div');
+    saveWrap.className = 'lesson-toolbar';
+    saveWrap.style.marginTop = '.6rem';
+    saveWrap.innerHTML = '<button class="btn btn-secondary" type="button" id="module-reflection-save">Save Reflection</button>';
+    const feed = document.createElement('p');
+    feed.className = 'form-feedback';
+    feed.id = 'module-reflection-feedback';
+    assignmentCard.insertBefore(saveWrap, assignmentCard.querySelector('[data-module-checklist]') || assignmentCard.lastElementChild);
+    assignmentCard.insertBefore(feed, assignmentCard.querySelector('[data-module-checklist]') || assignmentCard.lastElementChild);
+  }
+}
+
 function getIELTSStorageKeys(moduleId) {
   return {
     done: `ielts_m${moduleId}_done`,
@@ -563,7 +624,7 @@ function wireIELTSModulePage() {
     localStorage.setItem(keys.reflection, reflectionText.value.trim());
     localStorage.setItem(keys.legacyReflection, reflectionText.value.trim());
     localStorage.setItem(keys.started, 'true');
-    if (reflectionFeedback) reflectionFeedback.textContent = 'Reflection saved successfully.';
+    if (reflectionFeedback) reflectionFeedback.textContent = 'Saved ✅';
   });
 
   const markBtn = document.querySelector('[data-mark-module-complete]');
@@ -610,4 +671,5 @@ renderDashboardMetrics();
 renderSkillCardProgress();
 wireLevelFilters();
 renderIELTSDashboard();
+enhanceIELTSModuleLayout();
 wireIELTSModulePage();

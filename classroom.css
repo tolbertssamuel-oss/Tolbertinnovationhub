@@ -534,3 +534,10 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
   position: relative;
   z-index: 2;
 }
+
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: #35527a;
+  margin: 0 0 0.75rem;
+}
