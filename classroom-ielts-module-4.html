@@ -113,8 +113,8 @@
 <script>
   (function () {
     const quizForm = document.querySelector('[data-ielts-quiz][data-module-id="4"]');
-    const checkButton = document.querySelector('#checkAnswers');
-    const resultBox = document.querySelector('#quizResult');
+    const checkButton = document.getElementById('checkAnswers');
+    const resultBox = document.getElementById('quizResult');
     if (!quizForm || !checkButton || !resultBox) return;
 
     const answerKey = {

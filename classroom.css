@@ -515,3 +515,22 @@ iframe { border: 0; border-radius: 10px; margin-top: 0.6rem; }
     text-align: center;
   }
 }
+
+
+/* Ensure quiz controls remain tappable/clickable on mobile */
+.quiz-item,
+.quiz-item *,
+.quiz-option,
+.quiz-option *,
+#checkAnswers,
+#quizResult {
+  pointer-events: auto;
+}
+
+.quiz-item,
+.quiz-option,
+#checkAnswers,
+#quizResult {
+  position: relative;
+  z-index: 2;
+}
