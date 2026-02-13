@@ -206,6 +206,223 @@ function formatSize(bytes) {
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 }
 
+const CLASSROOM_STORAGE_KEY = 'tih_classroom_data_v1';
+const COURSE_MODULES = {
+  IELTS: [
+    'Listening Basics', 'Academic Reading Skills', 'General Reading Strategies', 'Task 1 Writing',
+    'Task 2 Writing', 'Speaking Part 1', 'Speaking Part 2', 'Speaking Part 3',
+    'Vocabulary Builder', 'Grammar Essentials', 'Timed Mock Test', 'Score Review'
+  ],
+  TOEFL: [
+    'Reading Foundations', 'Listening Foundations', 'Integrated Speaking', 'Independent Speaking',
+    'Integrated Writing', 'Academic Discussion Writing', 'Vocabulary Sprint', 'Grammar Refresher',
+    'Timed TOEFL Mock', 'Score Analysis'
+  ]
+};
+
+function getClassroomStore() {
+  try {
+    return JSON.parse(localStorage.getItem(CLASSROOM_STORAGE_KEY) || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function saveClassroomStore(store) {
+  localStorage.setItem(CLASSROOM_STORAGE_KEY, JSON.stringify(store));
+}
+
+function getStudentClassroomData(studentId) {
+  const store = getClassroomStore();
+  const existing = store[studentId] || {};
+  return {
+    completedModules: Array.isArray(existing.completedModules) ? existing.completedModules : [],
+    practiceScores: Array.isArray(existing.practiceScores) ? existing.practiceScores : [],
+    writingSpeakingEntries: Array.isArray(existing.writingSpeakingEntries) ? existing.writingSpeakingEntries : [],
+    lastActivity: existing.lastActivity || null
+  };
+}
+
+function saveStudentClassroomData(studentId, data) {
+  const store = getClassroomStore();
+  store[studentId] = data;
+  saveClassroomStore(store);
+}
+
+function getCourseProgress(courseName, completedModules) {
+  const lessons = COURSE_MODULES[courseName].map((moduleName) => `${courseName}-${moduleName}`);
+  const done = lessons.filter((id) => completedModules.includes(id)).length;
+  const total = lessons.length;
+  const percent = Math.round((done / total) * 100);
+  const status = done === 0 ? 'Not Started' : done === total ? 'Completed' : 'In Progress';
+  return { done, total, percent, status };
+}
+
+function renderCourseSummary(classroomData) {
+  const ielts = getCourseProgress('IELTS', classroomData.completedModules);
+  const toefl = getCourseProgress('TOEFL', classroomData.completedModules);
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+
+  setText('summary-ielts-progress', `${ielts.done}/${ielts.total} lessons (${ielts.percent}%) • ${ielts.status}`);
+  setText('summary-toefl-progress', `${toefl.done}/${toefl.total} lessons (${toefl.percent}%) • ${toefl.status}`);
+  setText('summary-last-activity', classroomData.lastActivity ? new Date(classroomData.lastActivity).toLocaleString() : 'No recent activity');
+}
+
+function renderModules(classroomData) {
+  const host = document.getElementById('module-list');
+  if (!host) return;
+
+  const cards = Object.entries(COURSE_MODULES).flatMap(([courseName, modules]) =>
+    modules.map((moduleName, index) => {
+      const moduleId = `${courseName}-${moduleName}`;
+      const slug = moduleId.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const completed = classroomData.completedModules.includes(moduleId);
+      const status = completed ? 'Completed' : 'Not Started';
+      return `
+        <article class="module-item" id="module-${slug}">
+          <h4>${courseName} Lesson ${index + 1}: ${escapeHTML(moduleName)}</h4>
+          <p><strong>Status:</strong> <span class="badge">${status}</span></p>
+          <div class="module-actions">
+            <a class="btn btn-outline-dark" href="portal-dashboard.html#module-${slug}">Open Module</a>
+            <button type="button" class="btn btn-primary mark-module-btn" data-module-id="${escapeHTML(moduleId)}">
+              ${completed ? 'Completed' : 'Mark Module Complete'}
+            </button>
+          </div>
+        </article>
+      `;
+    })
+  );
+
+  host.innerHTML = cards.join('');
+}
+
+function updateContinueLearningLink(classroomData) {
+  const link = document.getElementById('continue-learning-btn');
+  if (!link) return;
+
+  const firstIncomplete = Object.entries(COURSE_MODULES)
+    .flatMap(([courseName, modules]) => modules.map((moduleName) => `${courseName}-${moduleName}`))
+    .find((moduleId) => !classroomData.completedModules.includes(moduleId));
+
+  if (!firstIncomplete) {
+    link.textContent = 'All modules completed';
+    link.href = 'portal-dashboard.html#module-list';
+    return;
+  }
+
+  const slug = firstIncomplete.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  link.textContent = 'Continue Learning';
+  link.href = `portal-dashboard.html#module-${slug}`;
+}
+
+function renderPracticePerformance(classroomData) {
+  const scores = classroomData.practiceScores;
+  const latest = scores[scores.length - 1];
+  const best = scores.length ? Math.max(...scores.map((s) => s.score)) : null;
+
+  const latestEl = document.getElementById('practice-latest-score');
+  if (latestEl) latestEl.textContent = latest ? `${latest.score}% (${new Date(latest.date).toLocaleDateString()})` : 'No test submitted yet';
+
+  const bestEl = document.getElementById('practice-best-score');
+  if (bestEl) bestEl.textContent = best === null ? 'No test submitted yet' : `${best}%`;
+
+  const attemptsEl = document.getElementById('practice-attempts');
+  if (attemptsEl) attemptsEl.textContent = String(scores.length);
+}
+
+function renderWritingSpeakingHistory(classroomData) {
+  const host = document.getElementById('writing-speaking-history');
+  if (!host) return;
+
+  if (!classroomData.writingSpeakingEntries.length) {
+    host.innerHTML = '<p class="section-intro">No writing or speaking entries yet.</p>';
+    return;
+  }
+
+  host.innerHTML = classroomData.writingSpeakingEntries
+    .slice()
+    .reverse()
+    .map((entry) => `
+      <article class="submission-item">
+        <h4>${escapeHTML(entry.type)}: ${escapeHTML(entry.title)}</h4>
+        <p><strong>Date:</strong> ${new Date(entry.date).toLocaleString()}</p>
+        <p><strong>Status:</strong> <span class="badge">${escapeHTML(entry.status)}</span></p>
+      </article>
+    `)
+    .join('');
+}
+
+function bindClassroomActions(student, classroomData) {
+  const moduleHost = document.getElementById('module-list');
+  if (moduleHost) {
+    moduleHost.addEventListener('click', (event) => {
+      const button = event.target.closest('.mark-module-btn');
+      if (!button) return;
+
+      const moduleId = button.dataset.moduleId;
+      if (!moduleId || classroomData.completedModules.includes(moduleId)) return;
+
+      classroomData.completedModules.push(moduleId);
+      classroomData.lastActivity = new Date().toISOString();
+      saveStudentClassroomData(student.id, classroomData);
+      renderModules(classroomData);
+      renderCourseSummary(classroomData);
+      updateContinueLearningLink(classroomData);
+    });
+  }
+
+  const scoreForm = document.getElementById('practice-score-form');
+  if (scoreForm) {
+    scoreForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!scoreForm.checkValidity()) {
+        scoreForm.reportValidity();
+        setFeedback(scoreForm, 'Please enter a valid score between 0 and 100.', true);
+        return;
+      }
+
+      const value = Number(new FormData(scoreForm).get('score'));
+      classroomData.practiceScores.push({ score: value, date: new Date().toISOString() });
+      classroomData.lastActivity = new Date().toISOString();
+      saveStudentClassroomData(student.id, classroomData);
+      renderPracticePerformance(classroomData);
+      renderCourseSummary(classroomData);
+      setFeedback(scoreForm, 'Practice score saved successfully.');
+      scoreForm.reset();
+    });
+  }
+
+  const wsForm = document.getElementById('writing-speaking-form');
+  if (wsForm) {
+    wsForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!wsForm.checkValidity()) {
+        wsForm.reportValidity();
+        setFeedback(wsForm, 'Please complete all writing/speaking fields.', true);
+        return;
+      }
+
+      const formData = new FormData(wsForm);
+      classroomData.writingSpeakingEntries.push({
+        type: String(formData.get('type')).trim(),
+        title: String(formData.get('title')).trim(),
+        status: String(formData.get('status')).trim(),
+        date: new Date().toISOString()
+      });
+      classroomData.lastActivity = new Date().toISOString();
+      saveStudentClassroomData(student.id, classroomData);
+      renderWritingSpeakingHistory(classroomData);
+      renderCourseSummary(classroomData);
+      setFeedback(wsForm, 'Entry added to tracker.');
+      wsForm.reset();
+    });
+  }
+}
+
 function handleApplicationSubmission(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -265,16 +482,29 @@ function handleApplicationSubmission(event) {
 
 function loadDashboard() {
   const student = getSessionStudent();
-
-  if (!student) {
-    window.location.href = 'portal-login.html';
-    return;
-  }
+  const logoutBtn = document.getElementById('logout-btn');
+  const loginBtn = document.getElementById('login-btn');
+  const loginState = document.getElementById('login-state-text');
 
   const setText = (id, value) => {
     const el = document.getElementById(id);
     if (el) el.textContent = value || '-';
   };
+
+  if (!student) {
+    if (logoutBtn) logoutBtn.hidden = true;
+    if (loginBtn) loginBtn.hidden = false;
+    if (loginState) loginState.innerHTML = '<strong>Session:</strong> Not logged in';
+    setText('student-name', 'Student');
+    setText('student-email', '-');
+    setText('student-phone', '-');
+    setText('student-program', '-');
+    return;
+  }
+
+  if (logoutBtn) logoutBtn.hidden = false;
+  if (loginBtn) loginBtn.hidden = true;
+  if (loginState) loginState.innerHTML = '<strong>Session:</strong> Logged in';
 
   setText('student-name', student.fullName);
   setText('student-email', student.email);
@@ -285,12 +515,19 @@ function loadDashboard() {
   renderStudentStatus(student);
   renderAdmissionLetters(student);
 
+  const classroomData = getStudentClassroomData(student.id);
+  renderCourseSummary(classroomData);
+  renderModules(classroomData);
+  updateContinueLearningLink(classroomData);
+  renderPracticePerformance(classroomData);
+  renderWritingSpeakingHistory(classroomData);
+  bindClassroomActions(student, classroomData);
+
   const applicationForm = document.getElementById('application-submission-form');
   if (applicationForm) {
     applicationForm.addEventListener('submit', handleApplicationSubmission);
   }
 
-  const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       sessionStorage.removeItem(SESSION_KEY);

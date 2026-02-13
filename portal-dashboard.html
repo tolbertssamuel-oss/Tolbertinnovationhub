@@ -28,9 +28,30 @@
 
   <main id="main-content" class="section">
     <div class="container">
-      <p class="section-label">Personal Dashboard</p>
+      <p class="section-label">Classroom Dashboard</p>
       <h1 class="page-title">Welcome, <span id="student-name">Student</span></h1>
-      <p class="section-intro">View your scholarship profile, submit applications, and upload supporting documents.</p>
+      <p class="section-intro">Track your IELTS and TOEFL learning progress, test practice, and scholarship profile in one place.</p>
+
+      <section class="section compact-section">
+        <article class="card">
+          <h3>Quick Progress Summary</h3>
+          <div class="cards summary-grid">
+            <div class="summary-chip">
+              <p class="summary-label">IELTS</p>
+              <p class="summary-value" id="summary-ielts-progress">0/12 lessons (0%)</p>
+            </div>
+            <div class="summary-chip">
+              <p class="summary-label">TOEFL</p>
+              <p class="summary-value" id="summary-toefl-progress">0/10 lessons (0%)</p>
+            </div>
+            <div class="summary-chip">
+              <p class="summary-label">Last Activity</p>
+              <p class="summary-value" id="summary-last-activity">No recent activity</p>
+            </div>
+          </div>
+          <a id="continue-learning-btn" class="btn btn-primary" href="portal-dashboard.html#module-ielts-listening-basics">Continue Learning</a>
+        </article>
+      </section>
 
       <div class="cards two-up">
         <article class="card">
@@ -40,11 +61,65 @@
           <p><strong>Program:</strong> <span id="student-program">-</span></p>
         </article>
         <article class="card">
-          <h3>Application Status</h3>
+          <h3>Account & Application Status</h3>
+          <p id="login-state-text"><strong>Session:</strong> Logged in</p>
           <ul class="list-tight" id="application-status-list" aria-live="polite"></ul>
-          <button id="logout-btn" class="btn btn-primary" type="button">Log Out</button>
+          <button id="logout-btn" class="btn btn-primary" type="button" hidden>Log Out</button>
+          <a id="login-btn" class="btn btn-outline-dark" href="portal-login.html" hidden>Log In</a>
         </article>
       </div>
+
+      <section class="section compact-section">
+        <article class="card">
+          <h2>Exam Modules</h2>
+          <p class="section-intro">Course structure: IELTS has 12 lessons and TOEFL has 10 lessons. Use "Mark Module Complete" to update your dashboard progress instantly.</p>
+          <div id="module-list" class="module-list" aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section class="section compact-section">
+        <div class="cards two-up">
+          <article class="card">
+            <h3>Practice Performance</h3>
+            <p><strong>Latest Score:</strong> <span id="practice-latest-score">No test submitted yet</span></p>
+            <p><strong>Best Score:</strong> <span id="practice-best-score">No test submitted yet</span></p>
+            <p><strong>Total Attempts:</strong> <span id="practice-attempts">0</span></p>
+            <form id="practice-score-form" class="form-wrap" novalidate>
+              <label>Add Practice Test Score (0-100)
+                <input name="score" type="number" min="0" max="100" step="1" required placeholder="Enter score" />
+              </label>
+              <button type="submit" class="btn btn-primary">Save Practice Score</button>
+              <p class="form-feedback" aria-live="polite"></p>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Writing & Speaking Tracker</h3>
+            <form id="writing-speaking-form" class="form-wrap" novalidate>
+              <label>Submission Type
+                <select name="type" required>
+                  <option value="">Select type</option>
+                  <option value="Writing">Writing</option>
+                  <option value="Speaking">Speaking Recording</option>
+                </select>
+              </label>
+              <label>Title
+                <input type="text" name="title" required placeholder="e.g., IELTS Task 2 Essay" />
+              </label>
+              <label>Status
+                <select name="status" required>
+                  <option value="">Select status</option>
+                  <option value="Submitted">Submitted</option>
+                  <option value="Reviewed">Reviewed</option>
+                  <option value="Needs Revision">Needs Revision</option>
+                </select>
+              </label>
+              <button type="submit" class="btn btn-primary">Add Entry</button>
+              <p class="form-feedback" aria-live="polite"></p>
+            </form>
+            <div id="writing-speaking-history" class="submission-history" aria-live="polite"></div>
+          </article>
+        </div>
+      </section>
 
       <section class="section compact-section">
         <article class="card">
