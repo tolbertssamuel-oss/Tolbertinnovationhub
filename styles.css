@@ -175,6 +175,12 @@ h3 {
   border-color: rgba(255, 255, 255, 0.45);
 }
 
+.btn-outline-dark {
+  background: #eef4fb;
+  color: #0f2d44;
+  border-color: #bfd0e4;
+}
+
 .section {
   padding: clamp(2.3rem, 4.2vw, 4rem) 0;
 }
@@ -435,4 +441,57 @@ small {
 .letter-item {
   border-color: #cfe2ff;
   background: #f4f9ff;
+}
+
+.summary-grid {
+  margin-bottom: 1rem;
+}
+
+.summary-chip {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.75rem;
+  background: #fafcff;
+}
+
+.summary-label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.summary-value {
+  margin: 0.2rem 0 0;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.module-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.module-item {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.9rem;
+  background: #fbfdff;
+}
+
+.module-item h4 {
+  margin: 0 0 0.45rem;
+}
+
+.module-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .btn {
+    width: 100%;
+  }
 }
